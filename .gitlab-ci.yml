@@ -1,0 +1,36 @@
+variables:
+ Solution: SourceGrid_2013.sln
+ 
+stages:
+  - build
+  - test
+  
+#before_script:
+  #- 'git config http.sslVerify false'
+  #- '"nuget" config -Set HTTP_PROXY=http://127.0.0.1:8888'
+  #- '"nuget" config -Set HTTPS_PROXY=http://127.0.0.1:8888'
+
+build:
+    stage: build
+    script:
+    - echo restore dependencies
+    - '"nuget" restore "%Solution%"'
+    - echo "Release build..."
+    - '"C:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe" /property:Configuration=Release /verbosity:quiet "%Solution%"'
+    artifacts:
+      paths:
+        - Out\Win32\**
+      expire_in: 1 week
+    cache:
+      paths:
+       - Out\Test\**
+       - packages\**
+test:
+  stage: test
+  cache:
+      paths:
+        - Out\Test\**
+        - packages\**
+  script:
+   - echo "starting tests"
+   - '"packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" "Out\Test\Release\SourceGrid.Tests.dll"'

@@ -1,0 +1,1467 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SourceGrid</title>
+    <link href="style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <h1>SourceGrid</h1>
+    
+    <small>Lib Version: 4.11<br />
+     Doc Version: 2.0</small>
+    <br />
+    
+    <ul>
+        <li><a href="http://sourceforge.net/projects/sourcegrid">Download binary and source</a></li>
+        <li><a href="http://www.devage.com/">Official Web Site</a></li>
+    </ul>
+
+    <img src="SourceGrid_Overview.jpg" alt="Overview" />
+
+    <div id="TOC"></div>
+    
+    <h2><a id="Introduction">Introduction</a></h2>
+    <p>
+        SourceGrid is a .NET Windows Forms grid control written entirely in C# with managed code. 
+        SourceGrid can be used to visualize or to change data in a table format.
+        <br />
+        SourceGrid con be used bound to a data source (typically a DataView) or creating each cell directly.
+        <br />
+        There are a lot of controls of this type available, but often are expensive, difficult
+        to customize or too DataSet oriented.
+        <br />
+        SourceGrid use only managed code (without API or Interop) and can be used with any .NET 2 compatible environments.
+    </p>
+    <p>
+        In this article I want to supply an overview of the utilization and functionalities
+            of the SourceGrid control. For details on the classes, properties or methods you
+            can consult the documentation in CHM format or the example project in the ZIP file.
+        <br />
+        For more information, a discussion forums, bug tracker system or to download the latest release go to the SourceForge page: 
+        <a href="http://sourceforge.net/projects/sourcegrid">http://sourceforge.net/projects/sourcegrid</a> or to my home page 
+        <a href="http://www.devage.com/">http://www.devage.com/</a>
+    </p>
+    <h2><a id="QuickStart">Quick Start</a></h2>
+    <h3><a id="Installation">Installation</a></h3>
+    <p>To use SourceGrid you must have a .NET 2 compatible development environment (like Visual Studio 2005).
+    <br />
+    Download the latest release from <a href="http://sourceforge.net/projects/sourcegrid">http://sourceforge.net/projects/sourcegrid</a>.
+    Unzip the file and reference from your project these assemblies:
+    </p>
+    <ul>
+        <li><strong>SourceGrid.dll</strong> - SourceGrid core library</li>
+        <li><strong>DevAge.Core.dll</strong> - Helper library for common features</li>
+        <li><strong>DevAge.Windows.Forms.dll</strong> - Helper library for Windows Forms</li>
+        <li>[SourceGrid.Extensions.dll - Optional library with some SourceGrid extensions like DataGrid, PlanningGrid]</li>
+    </ul>
+    <small>Typically I suggest to always copy in the same location the *.xml files that you can find in the same directory of the assemblies to use the IDE IntelliSense features.</small>
+    <p>Open the form where you want to add the grid control, open the IDE ToolBox, right-click and select "Choose Items...". 
+    Browse and add SourceGrid.dll and SourceGrid.Extensions.dll assemblies on the IDE ToolBox.
+    </p>
+    <p>These assemblies are the same assemblies required by the runtime that you must redistribute with your application to the end-user.</p>
+    
+    <h3><a id="Controls">SourceGrid controls</a></h3>
+    <p>
+        There are 2 main controls inside the SourceGrid.dll assembly:</p>
+    <ul>
+        <li><code>GridVirtual</code> - A grid of virtual cells <code>(ICellVirtual)</code>.</li>
+        <li><code>Grid</code> - A grid of real cells <code>(ICell)</code>.</li>
+    </ul>
+    <p>
+        There are therefore two fundamentally distinct objects: virtual cells and real cells.
+        Virtual cells are cells that determine the appearance and the behaviour of the cell
+        but don't contain the value. The real cells have the same properties as virtual
+        cells but also contain the value of the cell, and are therefore associated to a
+        specific position in the grid.</p>
+    <p>
+    You can use the <code>Grid</code> control for any kinds of grid where you don't need to display large amounts of cells (typically less than 50.000 cells).
+    If you have to display large amount of cells you must usually use a <code>GridVirtual</code> derived controls, see the next chapters for more information.
+    <br />
+    Typically in this article I will use the <code>Grid</code> control because is more simply to use especially for simply examples. But consider that basically the same code can be used also for <code>GridVirtual</code>.
+    <br />
+    The <code>Grid</code> is also used if you have unusual grids that require maximum flexibility.
+    </p>
+    <p>
+    Drag the Grid control inside your forms as any other .NET control and start using it.
+    </p>
+    <h3><a id="BasicExamples">Basic examples</a></h3>
+    <p>For now SourceGrid has a poor design time support, so usually you must write manually the code to manipulate the grid.
+    <br />
+    Suppose that you have a <code>Grid</code> control named <code>grid1</code> you can write this code in the <code>Form.Load</code> event:
+    </p>
+    <pre lang="cs">
+grid1.BorderStyle = BorderStyle.FixedSingle;
+grid1.ColumnsCount = 3;
+grid1.FixedRows = 1;
+grid1.Rows.Insert(0);
+grid1[0,0] = new SourceGrid.Cells.ColumnHeader("String");
+grid1[0,1] = new SourceGrid.Cells.ColumnHeader("DateTime");
+grid1[0,2] = new SourceGrid.Cells.ColumnHeader("CheckBox");
+for (int r = 1; r &lt; 10; r++)
+{
+    grid1.Rows.Insert(r);
+    grid1[r,0] = new SourceGrid.Cells.Cell("Hello " + r.ToString(), typeof(string));
+    grid1[r,1] = new SourceGrid.Cells.Cell(DateTime.Today, typeof(DateTime));
+    grid1[r,2] = new SourceGrid.Cells.CheckBox(null, true);
+}
+
+grid1.AutoSizeCells();
+    </pre>
+    
+    <p>As you can see you can use the grid like a 2 dimension array.
+    In the previous code I have set the grid border, the number of columns, the number
+    of fixed rows and created the first header row. For the header I have used a <code>ColumnHeader</code>
+    cell. With a simple loop I have created the other cells using a specific type for
+    each column. The <code>Cell</code> class automatically creates an appropriate editor
+    for the type specified (in this case a TextBox and a DateTimePicker). For the last
+    column I have used a <code>CheckBox</code> cell that allows the display of a checkbox
+    directly in the cell. Each kind of cell defines its own visual aspect and behaviour.
+    <br />
+    The form should look like the one in the following picture.
+    </p>
+    <img src="BasicGrid.png" alt="FirstGrid" />
+    <p>The grid created supports sorting, column sizing and editing of the cells.</p>    
+    <p>Here some other important features:</p>
+    <ul>
+        <li>If you want to read or change the value of a cell you can use the <code>grid1[r,c].Value</code> property where r and c are the row and column of the cell.</li>
+        <li>To remove a row you can write <code>grid1.Rows.Remove(r)</code></li>
+        <li>To change the width of a column you can write <code>grid1.Columns[c].Width = 100</code></li>
+    </ul>
+    
+    <p>If you want to change some visual properties of the cell you must use the <code>View</code> class.
+    <br />
+    Let's see another example:</p>
+    <pre lang="cs">
+grid1.BorderStyle = BorderStyle.FixedSingle;
+
+grid1.ColumnsCount = 3;
+grid1.FixedRows = 1;
+grid1.Rows.Insert(0);
+
+SourceGrid.Cells.Views.ColumnHeader boldHeader = new SourceGrid.Cells.Views.ColumnHeader();
+boldHeader.Font = new Font(grid1.Font, FontStyle.Bold | FontStyle.Underline);
+
+SourceGrid.Cells.Views.Cell yellowView = new SourceGrid.Cells.Views.Cell();
+yellowView.BackColor = Color.Yellow;
+SourceGrid.Cells.Views.CheckBox yellowViewCheck = new SourceGrid.Cells.Views.CheckBox();
+yellowViewCheck.BackColor = Color.Yellow;
+
+
+grid1[0, 0] = new SourceGrid.Cells.ColumnHeader("String");
+grid1[0, 0].View = boldHeader;
+
+grid1[0, 1] = new SourceGrid.Cells.ColumnHeader("DateTime");
+grid1[0, 1].View = boldHeader;
+
+grid1[0, 2] = new SourceGrid.Cells.ColumnHeader("CheckBox");
+grid1[0, 2].View = boldHeader;
+for (int r = 1; r &lt; 10; r++)
+{
+    grid1.Rows.Insert(r);
+
+    grid1[r, 0] = new SourceGrid.Cells.Cell("Hello " + r.ToString(), typeof(string));
+    grid1[r, 0].View = yellowView;
+
+    grid1[r, 1] = new SourceGrid.Cells.Cell(DateTime.Today, typeof(DateTime));
+    grid1[r, 1].View = yellowView;
+
+    grid1[r, 2] = new SourceGrid.Cells.CheckBox(null, true);
+    grid1[r, 2].View = yellowViewCheck;
+}
+    </pre>   
+    <p>I have created a column header view with a style FontStyle.Bold | FontStyle.Underline, one view for a standard cell with a yellow backcolor and a checkbox view always with a yellow backcolor. Then I have assigned these instances to the <code>View</code> property of each cell.
+    <br />
+    The form should look like the one in the following picture.
+    </p>
+    <img src="BasicGrid2.png" alt="FirstGrid2" />
+    <p>You can note that I have assigned the same instance of the <code>View</code> class for many cells. This is useful to optimize the resources used.</p>
+    
+    <p>Each cell can have an editor (<code>Editor</code> property) associated. The editor is used to edit the cell value. 
+    You can manually create an editor class (see <code>SourceGrid.Cells.Editors</code> namespace) or use the 
+    <code>SourceGrid.Cells.Editors.Factory</code> class to create an editor based on a <code>Type</code>. 
+    You can also use the <code>Cell</code> constructor that automatically calls <code>SourceGrid.Cells.Editors.Factory</code> if you specify the <code>Type</code> parameter.
+    <br /> 
+    Here an example that creates some cells and the editors associated using one of the methods described.</p>
+    <pre lang="cs">
+//A DateTime editor
+grid1[r, c] = new SourceGrid.Cells.Cell(DateTime.Today, typeof(DateTime));
+
+//A string editor
+grid1[r, c] = new SourceGrid.Cells.Cell("Ciao", typeof(string));
+
+//A double editor
+grid1[r, c] = new SourceGrid.Cells.Cell(58.4);
+grid1[r, c].Editor = SourceGrid.Cells.Editors.Factory.Create(typeof(double));
+    </pre>
+    <p>Like the <code>View</code> classes also the editors can be shared between one or more cells.</p>
+
+    <p>Now you can start to work with SourceGrid, for more advanced information see the chapters below.</p>
+
+
+    <h2><a id="BasicConcepts">Basic Concepts</a></h2>
+    <h3><a id="Grid">Grid Control</a></h3>
+        <p>
+            The <code>Grid</code> control is the ideal if you want the greatest flexibility
+            and simplicity but without many cells. In fact, in this control every cell is represented
+            by a .NET class and therefore occupies a specific quantity of resources. Moreover
+            this is the only grid that supports features of RowSpan and ColumnSpan (cells merge).</p>
+        <p>
+            Using the control in a Windows form is trivial. It's just like adding any other
+            control like a Button or a DataGrid. First, create or open a Windows Application
+            project and open a Windows Form into the designer. Now you are ready to customize
+            the Toolbox: Right-Click the Toolbox, .NET Framework Components, Browse, select
+            the DevAge.SourceGrid.dll. The Grid Control is now added to the Toolbox and can
+            be inserted in Windows Form as any other control.</p>
+        <p>
+            After inserting the control in the form we can begin to write our code using the
+            grid. For example in the <code>Load</code> event of the form we can write this code:</p>
+        <pre lang="cs">grid1.Redim(2, 2);
+grid1[0,0] = new SourceGrid.Cells.Cell("Hello from Cell 0,0");
+grid1[1,0] = new SourceGrid.Cells.Cell("Hello from Cell 1,0");
+grid1[0,1] = new SourceGrid.Cells.Cell("Hello from Cell 0,1");
+grid1[1,1] = new SourceGrid.Cells.Cell("Hello from Cell 1,1");</pre>
+        <p>
+            The previous code creates a table with 2 lines and 2 columns (<code>Redim</code>
+            method) and populates every position with a cell. I have used the <code>SourceGrid.Cells</code>
+            namespace which contains the definition for real cells.</p>
+        <p>
+            To read a specific value of the grid you can use the value property of the cell
+            like this: <code>object val = grid1[1,0].Value;</code>.</p>
+        
+        <p>See the other chapters for more information.</p>
+         
+        <h3><a id="GridVirtual">GridVirtual Control</a></h3>
+        <p>
+            The <code>GridVirtual</code> control is ideal when it is necessary to visualize
+            a lot of cells and you already have available structured data like a <code>DataSet</code>,
+            an <code>Array</code>, a document XML or other data structure.
+            <br />
+            This type of grid have the same features of the <code>Grid</code> control except
+            for the automatic sort (this because the grid cannot automatically order any external
+            data structure without copying its content) and the feature of RowSpan and ColumnSpan
+            that allows spanning of a cell across other adjacent cells.
+            <br />
+            Another disadvantage is that creating a virtual grid is a little more difficult.</p>
+        <p>
+            The main concept in a virtual grid is that each cell reads and writes its value from an external data structure 
+            and the grid doesn't maintain all the rows and columns but are normally read directly from the data source. 
+            This idea was implemented with an abstract <code>GridVirtual</code>
+            class and with the abstract methods <code>CreateRowsObject</code>, <code>CreateColumnsObject</code>
+            and <code>GetCell</code>. Then you can use a special <code>IValueModel</code> to read the values
+            directly from the data source.
+            <br />
+            To use <code>GridVirtual</code> it is therefore necessary to create a class that
+            derives from <code>GridVirtual</code> and personalize the reading of the data source
+            overriding <code>CreateRowsObject</code>, <code>CreateColumnsObject</code>
+            and <code>GetCell</code> methods.
+            <br />
+            The purpose of the method <code>GetCell</code> is to return, for a given position
+            (row and column), the chosen cell, the methods <code>CreateRowsObject</code> and
+            <code>CreateColumnsObject</code> are used to create the columns and the rows objects
+            for the used data source. This allows great flexibility because you can return any
+            <code>ICellVirtual</code> for a specific type; for example you could return a cell
+            of type header when the row is 0.</p>
+        <p>
+            Usually you don't need to use directly the <code>GridVirtual</code> but one of the
+            derived controls. For now I have implemented two controls that directly use the
+            virtual grid features:</p>
+        <ul>
+            <li><code>DataGrid</code> - A grid bound to a DataView object.</li>
+            <li><code>ArrayGrid</code> - A grid bound to an Array object.</li>
+        </ul>
+        <p>
+            If you want to create your custom control to read from a specific data source you
+            can see <code>ArrayGrid</code> class for an example.</p>
+
+
+        <h3><a id="Cell">Cell overview</a></h3>
+        <p>Every cell is composed of four fundamental parts based on a modified Model-View-Controller
+            pattern:</p>
+        <ul>
+            <li><code>Model</code> : The Model is the class that manages the value of the cells.
+                It contains the values or properties associated and is accessible by the other components.</li>
+            <li><code>View</code> : The View is the class that draws the cell and contains the visual
+                properties. </li>
+            <li><code>Controller</code> : The Controller is the class that supplies the behaviour
+                of the cell.</li>
+            <li><code>Editor</code> : The Editor is the class used to customize the editor of the
+                cell.</li>
+        </ul>
+        <img src="SourceGridMVC.GIF" alt="SourceGridMVC" />
+        <p>This subdivision grants great flexibility and reusability of code, saves time and
+            supplies a solid base for every type of customization.
+            <br />
+            For the more common cases there are some classes already arranged and configured,
+            but with a few lines of code is possible to create personalized cells (see the next
+            paragraphs for the details).</p>
+
+        <h3><a id="RowsAndColumns">Rows and Columns</a></h3>
+        <p>
+            The main components of a grid are the rows and the columns. To manipulate this information,
+            SourceGrid supplies 2 properties:</p>
+        <ul>
+            <li><code>Rows</code> - Manages the rows information, the base class is the <code>RowsBase</code>
+                class.</li>
+            <li><code>Columns</code> - Manages the columns information, the base class is the <code>
+                ColumnsBase</code> class.</li>
+        </ul>
+        <p>
+            When using a real grid the base classes are extended with the <code>RowInfoCollection</code>
+            and the <code>ColumnInfoCollection</code>. These are collection of <code>RowInfo</code>
+            and <code>ColumnInfo</code> classes. When using a virtual grid you must extend the
+            base classes with your custom code to provide information of your data source.</p>
+            
+        <h3><a id="AllocatingRowsAndColumns">Manipulating Rows and Columns on real grid</a></h3>
+        <p>
+            NOTE: Only valid for real grid.</p>
+        <p>
+            These are some of the <code>RowInfo</code> class properties: <code>Height</code>,
+            <code>Top</code>, <code>Bottom</code>, <code>Index</code>, <code>Tag</code>. In
+            contrast, these are the properties of the <code>ColumnInfo</code> class:<code>Width</code>,
+            <code>Left</code>, <code>Right</code>, <code>Index</code>, <code>Tag</code>.</p>
+        <p>
+            There are many ways to create rows and columns:</p>
+        <ul>
+            <li>
+                <pre lang="cs">grid1.Redim(2,2);</pre>
+            </li>
+            <li>
+                <pre lang="cs">grid1.RowsCount = 2;
+grid1.ColumnsCount = 2;</pre>
+            </li>
+            <li>
+                <pre lang="cs">grid1.Rows.Insert(0);
+grid1.Rows.Insert(1);
+grid1.Columns.Insert(0);
+grid1.Columns.Insert(1);</pre>
+            </li>
+        </ul>
+        <p>
+            These three examples perform all the same task of creating a table with 2 rows and
+            2 columns.</p>
+        <p>
+            To change the width or the height of a row or a column you can use this code:</p>
+        <pre lang="cs">grid1.Rows[0].Height = 100;
+grid1.Columns[0].Width = 100;</pre>
+        <p>
+            The properties <code>Top</code>, <code>Bottom</code>, <code>Left</code> and <code>Right</code>
+            are automatically calculated using the width and the height of the rows and columns.</p>
+        <p>
+            After allocating the rows and columns, you must create for each position of the
+            grid the required cells, like this code:</p>
+        <pre lang="cs">grid1.Redim(2,2);
+grid1[0, 0] = new SourceGrid.Cells.Cell("Cell 0, 0");
+grid1[1, 0] = new SourceGrid.Cells.Cell("Cell 1, 0");
+grid1[0, 1] = new SourceGrid.Cells.Cell("Cell 0, 1");
+grid1[1, 1] = new SourceGrid.Cells.Cell("Cell 1, 1");</pre>
+
+        <h3><a id="Model">Model</a></h3>
+        <p>
+            Namespace: <b>SourceGrid.Cells.Models</b></p>
+        <p>
+            The purpose of the <code>Model</code> classes is to separate the data in the cells
+            from the cell object. This separation is used for two main reasons:</p>
+        <ul>
+            <li>To implement virtual grid, where the values are stored only in the original data
+                source. In this case the <code>Model</code>, if implemented in the right way, reads
+                the data directly from the data source.</li>
+            <li>To extend the cells classes but maintaining an easy reusability of the code. This
+                is because you don't have to change the base <code>Cell</code> class to add new
+                features, but you can simply add a new <code>Model</code>.</li>
+        </ul>
+        <p>
+            Every cell has a property <code>Model</code> that gets or sets a <code>ModelContainer</code>
+            object. This class is a collection of <code>IModel</code> interface. Each <code>IModel</code>
+            interface contains all the properties used for a specific feature.</p>
+        <p>
+            The main <code>Model</code> is the <code>ValueModel</code> which contains the value
+            of the cell, but there also other models and you can crate your custom models. Here
+            are the default models:</p>
+        <ul>
+            <li><code>IValueModel</code></li>
+            <li><code>IToolTipText</code></li>
+            <li><code>ICheckBox</code></li>
+            <li><code>ISortableHeader</code></li>
+        </ul>
+        <p>
+            Each of these models contains the properties specified for each features, for example
+            the <code>IToolTipText</code> contains the ToolTipText string.</p>
+        <p>
+            Each cell has a collection of models to allow using many features on a single cell.</p>
+        <p>
+            Usually using real cell you can use a model that simply implement the right interface
+            storing directly the required data; using virtual grid you can implement the interface
+            to bind the values directly to an external data source.</p>
+            
+        <h3><a id="View">View</a></h3>
+        <p>
+            Namespace: <b>SourceGrid.Cells.Views</b></p>
+        <p>
+            Every cell has a property <code>View</code> to gets or sets an interface of type
+            <code>IView</code>. The cell uses this interface to draw and to customize the visual
+            properties of the cell.</p>
+        <p>
+            The purpose of the <code>View</code> is to separate the drawing code from the rest
+            of the code and allows sharing of the same visual properties between cells. In fact
+            the same instance of <code>View</code> can be used on many cells simultaneously
+            thus optimizing the use of the resources of the system.</p>
+        <p>
+            These are the default <code>View</code> classes in the namespace <code>SourceGrid.Cells.Views:</code></p>
+        <ul>
+            <li><code>SourceGrid.Cells.Views.Cell</code> - Used for classic cells. In this view
+                you can customize the colours, the font, the borders and a lot other properties.</li>
+            <li><code>SourceGrid.Cells.Views.Button</code> - Used for a cell with a button style
+                with theme support.</li>
+            <li><code>SourceGrid.Cells.Views.Link</code> - Used for a cell with a link style.</li>
+            <li><code>SourceGrid.Cells.Views.CheckBox*</code> - Used for checkbox style cells. The
+                checkbox can be selected, disabled and can contain a caption.</li>
+            <li><code>SourceGrid.Cells.Views.Header*</code> - Used for a generic header cell.</li>
+            <li><code>SourceGrid.Cells.Views.ColumnHeader*</code> - Used for a column header cell
+                with theme support.</li>
+            <li><code>SourceGrid.Cells.Views.RowHeader</code> - Used for row header cell with theme
+                support.</li>
+            <li><code>SourceGrid.Cells.Views.MultiImages</code> - Allows the drawing of more than
+                one image in the cell.</li>
+        </ul>
+        <p>
+            <i>*The <code>View</code> marked with an asterisk requires special components to work
+                correctly, for example the <code>CheckBox</code> view needs an <code>ICheckBox</code>
+                <code>Model</code>.</i></p>
+        <p>
+            Some of the previous classes contain one or more static properties with some convenient
+            default instances.</p>
+        <p>
+            This code shows how to create a <code>View</code> class, change some properties
+            and assign it to more cells previously created:</p>
+        <pre lang="cs">SourceGrid.Cells.Views.Cell view = new SourceGrid.Cells.Views.Cell();
+view.BackColor = Color.Khaki;
+grid1[0,0].View = view;
+grid1[2,0].View = view;</pre>
+        <p>
+            With some line of code you can create your custom <code>View</code>, in this case
+            I suggest deriving your class from <code>Cell</code>, which already has implemented
+            some default methods. In the following code example I create a <code>View</code>
+            that draws a red ellipse over the cell:</p>
+        <pre lang="cs">public class MyView : SourceGrid.Cells.Views.Cell
+{
+	protected override void DrawCell_Background(SourceGrid.Cells.ICellVirtual p_Cell,
+	 SourceGrid.Position p_CellPosition, PaintEventArgs e, Rectangle p_ClientRectangle)
+	{
+		base.DrawCell_Background (p_Cell, p_CellPosition, e, p_ClientRectangle);
+
+		e.Graphics.DrawEllipse(Pens.Red, p_ClientRectangle);
+	}
+}
+</pre>
+        <p>
+            To use this new <code>View</code> in a cell use this code:</p>
+        <pre lang="cs">MyView myView = new MyView();
+//...... code to populate the grid
+grid1[r, c].View = myView;</pre>
+
+        <h3><a id="Controller">Controller</a></h3>
+        <p>
+            Namespace: <b>SourceGrid.Cells.Controllers</b></p>
+        <p>
+            Every cell has a property <code>Controller</code> that gets or sets a <code>ControllerContainer</code>
+            object. This class is a collection of <code>IController</code> interface. Each <code>
+                IController</code> interface can be used to extend the behaviour of the cell
+            using many events like <code>Click, MouseDown, KeyPress, </code>...</p>
+        <p>
+            These are the default classes:</p>
+        <ul>
+            <li><code>SourceGrid.Cells.Controllers.Cell</code> - Common behaviour of a cell.</li>
+            <li><code>SourceGrid.Cells.Controllers.Button</code> - A cell that acts as a button.</li>
+            <li><code>SourceGrid.Cells.Controllers.CheckBox</code>* - A cell with a behaviour of
+                a CheckBox. (need <code>ICheckBox</code> Model)</li>
+            <li><code>SourceGrid.Cells.Controllers.ColumnFocus</code> - Used to set the focus on
+                the column when clicking the header cell.</li>
+            <li><code>SourceGrid.Cells.Controllers.ColumnSelector</code> - Used to set select the
+                column when clicking the header cell.</li>
+            <li><code>SourceGrid.Cells.Controllers.CustomEvents</code> - Exposes a list of events
+                that you can use without creating a new <code>Controller</code>.</li>
+            <li><code>SourceGrid.Cells.Controllers.FullColumnSelection</code> - Used to enable the
+                columns selection mode.</li>
+            <li><code>SourceGrid.Cells.Controllers.FullRowSelection</code> - Used to enable the
+                rows selection mode.</li>
+            <li><code>SourceGrid.Cells.Controllers.MouseCursor</code> - Used to display a mouse
+                cursor over the cell.</li>
+            <li><code>SourceGrid.Cells.Controllers.MouseInvalidate</code> - Used to invalidate the
+                cell area when receiving a mouse event.</li>
+            <li><code>SourceGrid.Cells.Controllers.Resizable</code> - Used to create a resizable
+                cell, for both width and height.</li>
+            <li><code>SourceGrid.Cells.Controllers.RowFocus</code> - Used to set the focus on the
+                row when clicking the header cell.</li>
+            <li><code>SourceGrid.Cells.Controllers.RowSelector</code> - Used to set select the row
+                when clicking the header cell.</li>
+            <li><code>SourceGrid.Cells.Controllers.SortableHeader</code>* - Used to create a sortable
+                column header cell. (need a <code>ISortableHeader</code> Model)</li>
+            <li><code>SourceGrid.Cells.Controllers.ToolTipText</code>* - Used to create a cell with
+                a ToolTip. (need <code>IToolTipText</code> Model)</li>
+            <li><code>SourceGrid.Cells.Controllers.Unselectable</code> - Used to create an unselectable
+                cell.</li>
+        </ul>
+        <p>
+            *<i>The <code>Controller</code> marked with an asterisk need special models to complete
+                their tasks.</i></p>
+        <p>
+            Some of the previous classes contain one or more static properties with some convenient
+            default instances. <br />
+            Here the list of events that can be used inside a <code>Controller</code>:</p>
+        <ul>
+            <li>Mouse: <code>OnMouseDown</code>, <code>OnMouseUp</code>, <code>OnMouseMove</code>, <code>OnMouseEnter</code>, <code>OnMouseLeave</code></li>
+            <li>Keys: <code>OnKeyUp</code>, <code>OnKeyDown</code>, <code>OnKeyPress</code></li>
+            <li>Click: <code>OnDoubleClick</code>, <code>OnClick</code></li>
+            <li>Focus: <code>OnFocusLeaving</code>, <code>OnFocusLeft</code>, <code>OnFocusEntering</code>, <code>OnFocusEntered</code>, <code>CanReceiveFocus</code></li>
+            <li>Cell Value: <code>OnValueChanging</code>, <code>OnValueChanged</code></li>
+            <li>Edit: <code>OnEditStarting</code>, <code>OnEditStarted</code>, <code>OnEditEnded</code></li>
+        </ul>
+        <p>
+            With some line of code you can create your custom <code>Controller</code>, in this
+            case I suggest deriving your class from <code>ControllerBase</code>, which already
+            have implemented some default methods. In the following code example I create a
+            <code>Controller</code> that changes the backcolor of the cell when the user moves
+            the mouse over it:</p>
+        <pre lang="cs">public class MyController : SourceGrid.Cells.Controllers.ControllerBase
+{
+	private SourceGrid.Cells.Views.Cell MouseEnterView = new SourceGrid.Cells.Views.Cell();
+	private SourceGrid.Cells.Views.Cell MouseLeaveView = new SourceGrid.Cells.Views.Cell();
+	public MyController()
+	{
+		MouseEnterView.BackColor = Color.Green;
+	}
+
+	public override void OnMouseEnter(SourceGrid.CellContext sender, EventArgs e)
+	{
+		base.OnMouseEnter (sender, e);
+
+		sender.Cell.View = MouseEnterView;
+
+		sender.Grid.InvalidateCell(sender.Position);
+	}
+	public override void OnMouseLeave(SourceGrid.CellContext sender, EventArgs e)
+	{
+		base.OnMouseLeave (sender, e);
+
+		sender.Cell.View = MouseLeaveView;
+		
+		sender.Grid.InvalidateCell(sender.Position);
+	}
+}</pre>
+        <p>
+            To use this new <code>Controller</code> in a cell use this code:</p>
+        <pre lang="cs">MyController myController = new MyController();
+//...... code to populate the grid
+grid1[r, c].AddController(myController);</pre>
+        <p>You can also add a controller to the whole grid to apply the same controller to all the cells:</p>
+        <pre>grid1.Controller.AddController(new MyController());</pre>
+        <p>Consider for example the Controller below that open a messagebox each time a user click on a cell:</p>
+        <pre>
+class ClickController : SourceGrid.Cells.Controllers.ControllerBase
+{
+    public override void OnClick(SourceGrid.CellContext sender, EventArgs e)
+    {
+        base.OnClick(sender, e);
+
+        object val = sender.Value;
+        if (val != null)
+            MessageBox.Show(sender.Grid, val.ToString());
+    }
+}        
+        </pre>
+        <p>You can add this controller to all the cells with this code:</p>
+        <pre>grid1.Controller.AddController(new ClickController());</pre>
+
+        <p>Here another example of how to use a controller to check when the value of a cell change, using the OnValueChanged event:</p>
+        <pre>
+public class ValueChangedEvent : SourceGrid.Cells.Controllers.ControllerBase
+{
+    public override void OnValueChanged(SourceGrid.CellContext sender, EventArgs e)
+    {
+        base.OnValueChanged(sender, e);
+
+        string val = "Value of cell {0} is '{1}'";
+
+        MessageBox.Show(sender.Grid, string.Format(val, sender.Position, sender.Value));
+    }
+}        
+        </pre>
+        <p>You can add this controller to all the cells with this code:</p>
+        <pre>grid1.Controller.AddController(new ValueChangedEvent());</pre>
+        <p>Each time the value of a cell change the previous controller show a messagebox with the position of the cell and the new value.</p>
+
+
+        <h3><a id="Editor">Editor</a></h3>
+        <p>
+            Namespace: <b>SourceGrid.Cells.Editors</b></p>
+        <p>
+            Every cell has a property <code>Editor</code> that gets or sets an <code>EditorBase</code>
+            object. This class is used to supply a cell editor. If this property is null it
+            is not possible to edit the cell.</p>
+        <p>
+            Usually the <code>Editor</code> uses the <code>Model</code> class to manage the
+            necessary conversion, particularly the string conversion (used to represent the
+            cell value).</p>
+        <p>
+            These are the default classes:</p>
+        <ul>
+            <li><code>ComboBox</code> - A <code>ComboBox</code> editor.</li>
+            <li><code>DateTimePicker</code> - A <code>DateTimePicker</code> editor.</li>
+            <li><code>NumericUpDown</code> - A <code>NumericUpDown</code> editor.</li>
+            <li><code>TextBox</code> - A <code>TextBox</code> editor. This is one of the more used
+                editors by all types that support string conversion <code>(string, int, double, enum,....)</code>.</li>
+            <li><code>TextBoxCurrency</code> - A <code>TextBox</code> editor specialized for numeric
+                currency values. </li>
+            <li><code>TextBoxNumeric</code> - A <code>TextBox</code> editor specialized for numeric
+                values.</li>
+            <li><code>TimePicker</code> - A <code>DateTimePicker</code> editor specialized for time
+                values.</li>
+            <li><code>TextBoxUITypeEditor</code> - Supplies the editing of the cell of all types
+                that have a <code>UITypeEditor</code>. This is a very useful class because a lot
+                of types support this class: DateTime, Font, enums, and you can also create your
+                custom <code>UITypeEditor</code>.</li>
+            <li><code>ImagePicker</code> - An editor that can be used to select an image file and edit a byte[] values.</li>
+        </ul>
+        <p>
+            An <code>Editor</code> can be shared between many cells of the same grid; for example
+            you can use the same <code>Editor</code> for every cell of a column, but always
+            with the same grid.</p>
+        <p>
+            Each <code>Editor</code> class has a property <code>Control</code> that returns
+            an instance of the <code>Windows Forms</code> control used to edit the cell. You
+            can use this instance to customize the editor control or for advanced features.</p>
+        <p>
+            Here some ways to create an editable cell:</p>
+        <ul>
+            <li>Create the cell specifying the value type. In this way the cell automatically calls
+                a utility function, <code>SourceGrid.Cells.Editor.Factory.Create</code>, which returns a valid 
+                <code>Editor</code> for the type specified or null.
+                <pre lang="cs">//String cell
+grid1[0, 0] = new SourceGrid.Cells.Cell("Hello", typeof(string));
+//Double cell
+grid1[0, 1] = new SourceGrid.Cells.Cell(0.7, typeof(double));</pre>
+            </li>
+            <li>Create the <code>Editor</code> separately and then assign it to the cells:
+                <pre lang="cs">//String editor
+SourceGrid.Cells.Editors.IEditor editorString = SourceGrid.Cells.Editor.Factory.Create(typeof(string));
+//Double editor
+SourceGrid.Cells.Editors.IEditor editorDouble = SourceGrid.Cells.Editor.Factory.Create(typeof(double));
+//String cell
+grid1[0, 0] = new SourceGrid.Cells.Cell("Hello");
+grid1[0, 0].Editor = editorString;
+//Double cell
+grid1[0, 1] = new SourceGrid.Cells.Cell(0.7);
+grid1[0, 1].Editor = editorDouble;</pre>
+                This method is recommended when you want to use the same editor for several cells.
+            </li>
+            <li>Create manually the correct editor and then assign it to the cells:
+                <pre lang="cs">SourceGrid.Cells.Editors.TextBox txtBox =
+	 new SourceGrid.Cells.Editors.TextBox(typeof(string));
+grid1[2,0].Editor = txtBox;</pre>
+            </li>
+        </ul>
+        <p>
+            If you need greater control on the type of editor or there are special requirements
+            I suggest to manually creating the editor.<br />
+            In this case, for example, I manually create the class <code>EditorTextBox</code>
+            and then set the property <code>MaxLength</code>.</p>
+        <pre lang="cs">//String editor
+SourceGrid.Cells.Editors.TextBox editorString = new SourceGrid.Cells.Editors.TextBox(typeof(string));
+editorString.Control.MaxLength = 10;
+//String cell
+grid1[0, 0] = new SourceGrid.Cells.Cell("Hello");
+grid1[0, 0].Editor = editorString;</pre>
+        <p>
+            The editor can be used also to customize the format of the cell, in the code below
+            for example I create a cell with a custom numeric format:</p>
+        <pre lang="cs">//Double editor
+SourceGrid.Cells.Editors.TextBoxNumeric editorDouble = new SourceGrid.Cells.Editors.TextBoxNumeric(typeof(double));
+editorDouble.TypeConverter = new DevAge.ComponentModel.Converter.NumberTypeConverter(typeof(double), "#,###.00");
+//String cell
+grid1[0, 0] = new SourceGrid.Cells.Cell(9419.3894);
+grid1[0, 0].Editor = editorDouble;</pre>
+        <p>
+            I have used the <code>TypeConverter</code> property to customize the conversion
+            to and from string values. There are many other <code>TypeConverter</code> available:
+        </p>
+        <ul>
+            <li><code>DevAge.ComponentModel.Converter.NumberTypeConverter</code> - For numeric types
+                like double, decimal, int, float</li>
+            <li><code>DevAge.ComponentModel.Converter.PercentTypeConverter</code> - For numeric
+                types like double, decimal and float but with percent format.</li>
+            <li><code>DevAge.ComponentModel.Converter.CurrencyTypeConverter</code> - For Decimal
+                and double types with currency format.</li>
+            <li><code>DevAge.ComponentModel.Converter.DateTimeTypeConverter</code> - For DateTime
+                type.</li>
+        </ul>
+        
+        <p>Below another example that create a DateTime editor with a custom format:</p>
+        <pre lang="cs">
+//DateTime editor with custom format
+string[] dtParseFormats = new string[] { dtFormat2 };
+System.Globalization.DateTimeStyles dtStyles = System.Globalization.DateTimeStyles.AllowInnerWhite |
+                 System.Globalization.DateTimeStyles.AllowLeadingWhite | 
+                 System.Globalization.DateTimeStyles.AllowTrailingWhite | 
+                 System.Globalization.DateTimeStyles.AllowWhiteSpaces;
+TypeConverter dtConverter = new DevAge.ComponentModel.Converter.DateTimeTypeConverter(dtFormat2, dtParseFormats, dtStyles);
+SourceGrid.Cells.Editors.TextBoxUITypeEditor editorDt2 = new SourceGrid.Cells.Editors.TextBoxUITypeEditor(typeof(DateTime));
+editorDt2.TypeConverter = dtConverter;
+
+grid[currentRow, 1] = new SourceGrid.Cells.Cell(DateTime.Today);
+grid[currentRow, 1].Editor = editorDt2;
+        </pre>
+        
+        <p>
+            The following picture shows most of the editors available and some special cells
+            (picture from Sample 3):</p>
+        <p>
+            <img src="SourceGrid_EditorsCells.jpg" alt="Editors" /></p>
+        <p>
+            It is possible to create a custom <code>Editor</code> with custom control or special
+            behaviours with few lines of code.
+        <br />
+            You can derive your custom class from <code>EditorControlBase</code> and create
+            any Windows Forms control. This is an example of an editor that uses <code>DateTimePicker</code>
+            control:</p>
+        <pre lang="cs">public class DateTimePicker : EditorControlBase
+{
+	public DateTimePicker():base(typeof(System.DateTime))
+	{
+	}
+	protected override Control CreateControl()
+	{
+		System.Windows.Forms.DateTimePicker dtPicker = 
+		    new System.Windows.Forms.DateTimePicker();
+		dtPicker.Format = DateTimePickerFormat.Short;
+            	dtPicker.ShowCheckBox = AllowNull;
+		return dtPicker;
+	}
+        protected override void OnChanged(EventArgs e)
+        {
+            base.OnChanged(e);
+            if (Control != null)
+                Control.ShowCheckBox = AllowNull;
+        }
+	public new System.Windows.Forms.DateTimePicker Control
+	{
+		get
+		{
+			return (System.Windows.Forms.DateTimePicker)base.Control;
+		}
+	}
+	protected override void OnStartingEdit(CellContext cellContext, 
+	            Control editorControl)
+	{
+		base.OnStartingEdit(cellContext, editorControl);
+		System.Windows.Forms.DateTimePicker dtPicker = 
+		    (System.Windows.Forms.DateTimePicker)editorControl;
+		dtPicker.Font = cellContext.Cell.View.Font;
+	}
+	public override void SetEditValue(object editValue)
+	{
+		if (editValue is DateTime)
+			Control.Value = (DateTime)editValue;
+        	else if (editValue == null)
+                	Control.Checked = false;
+		else
+                	throw new SourceGridException
+                	    ("Invalid edit value, expected DateTime");
+	}
+	public override object GetEditedValue()
+	{
+            if (Control.Checked)
+                return Control.Value;
+            else	
+		return null;
+	}
+        protected override void OnSendCharToEditor(char key)
+        {
+        }
+}</pre>
+
+        <p>Consider that you can share the same instance of the editor with many cells but only with a single grid control. Basically each editor is associated with only one grid.
+        <br />
+        For large grid it is always a good idea to share the editors, because each editor has a Windows Forms Control associated and so it is quite heavy.</p>
+
+        <h3><a id="AdvancedCells">Advanced cells</a></h3>
+        <p>
+            Namespace: <b>SourceGrid.Cells</b></p>
+        <p>
+            These are the default cells available:</p>
+        <ul>
+            <li><b>SourceGrid.Cells.Virtual</b> - This namespace contains all the virtual cells
+                that can be used with a <code>GridVirtual</code> control.
+                <ul>
+                    <li><code>CellVirtual</code> - Base cell for each other implementations; use for the
+                        most common type of virtual cells.</li>
+                    <li><code>Header</code> - A header cell.</li>
+                    <li><code>ColumnHeader</code> - A column header cell.</li>
+                    <li><code>RowHeader</code> - A row header cell.</li>
+                    <li><code>Button</code> - A button cell.</li>
+                    <li><code>CheckBox</code> - A checkbox cell.</li>
+                    <li><code>ComboBox</code> - A combobox cell.</li>
+                    <li><code>Link</code> - A link style cell.</li>
+                    <li><code>Image</code> - An image cell.</li>
+                </ul>
+            </li>
+            <li><b>SourceGrid.Cells</b> - This namespace contains all the real cells that can be
+                used with a <code>Grid</code> control.
+                <ul>
+                    <li><code>Cell</code> - Base cell for all other implementations; use for the most common
+                        type of real cells.</li>
+                    <li><code>Header</code> - A header cell.</li>
+                    <li><code>ColumnHeader</code> - A column header cell.</li>
+                    <li><code>RowHeader</code> - A row header cell.</li>
+                    <li><code>Button</code> - A button cell.</li>
+                    <li><code>CheckBox</code> - A checkbox cell.</li>
+                    <li><code>ComboBox</code> - A combobox cell.</li>
+                    <li><code>Link</code> - A link style cell.</li>
+                    <li><code>Image</code> - An image cell.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>
+            The goal of these classes is to simplify the use of <code>View, Model, Controller and
+                Editor</code> classes. If we look at the code of any of the cell classes we
+            can see that these classes use these components according to the role of the cell.
+        <br />
+            This is, for example, the code of the cell <code>SourceGrid.Cells.CheckBox</code>:</p>
+        <pre lang="cs">public class CheckBox : Cell
+{
+	public CheckBox(string caption, bool checkValue):base(checkValue)
+	{
+		if (caption != null &amp;&amp; caption.Length &gt; 0)
+			View = Views.CheckBox.MiddleLeftAlign;
+		else
+			View = Views.CheckBox.Default;
+
+		Model.AddModel(new Models.CheckBox());
+		AddController(Controllers.CheckBox.Default);
+		AddController(Controllers.MouseInvalidate.Default);
+		Editor = new Editors.EditorBase(typeof(bool));
+		Caption = caption;
+	}
+	private Models.CheckBox CheckBoxModel
+	{
+		get{return (Models.CheckBox)Model.FindModel(typeof(Models.CheckBox));}
+	}
+	public bool Checked
+	{
+		get{return CheckBoxModel.GetCheckBoxStatus(this, Range.Start).Checked;}
+		set{CheckBoxModel.SetCheckedValue(this, Range.Start, value);}
+	}
+	public string Caption
+	{
+		get{return CheckBoxModel.Caption;}
+		set{CheckBoxModel.Caption = value;}
+	}
+}</pre>
+
+
+
+        <h3><a id="FocusAndSelection">Focus and Selection</a></h3>
+        <p>
+            A cell can be selected or can have the focus. Only one cell can have the focus,
+            identified by the <code>Grid.Selection.ActivePosition</code> property of the grid,
+            while many cells can be selected. A cell is selected when is present in the <code>Selection</code>
+            object of the grid.
+            <br />
+            The cell with the focus receives all the mouse and keyboard events, while the selected
+            cells can receive actions like copy, paste and clear.</p>
+        <p>
+            To set the focus on a specific cell you can use <code>Grid.Selection.Focus(Position
+                pos)</code> method, using for input the position of the cell that will receive
+            the focus, use Position.Empty as parameter to remove the focus.</p>
+        <p>Use the Grid.Selection.SelectCell method or SelectRange method to add or remove specific cells from the selection.</p>
+        <p>
+            To list all the selected cells you can use <code>Grid.Selection.GetRanges()</code>
+            method that returns a list of selected Range, or check if a particular cell is
+            selected using the <code>IsSelectedCell</code> method. You can customize many aspects of
+            the selection with these properties: <code>Grid.Selection.BackColor</code>, <code>Grid.Selection.Border</code>,
+             <code>Grid.Selection.FocusBackColor</code>, ...</p>
+        <p>
+            You can also use these events to respond to specific action of the user: <code>Grid.Selection.FocusRowEntered</code>,
+            <code>Grid.Selection.FocusRowLeaving</code>, <code>Grid.Selection.FocusColumnEntered</code>,
+            <code>Grid.Selection.FocusColumnLeaving</code>, <code>Grid.Selection.CellLostFocus</code>,
+            <code>Grid.Selection.CellGotFocus</code>, <code>Grid.Selection.SelectionChanged</code>, ...</p>
+        <p>You can set the selection mode using the <code>Grid.SelectionMode</code> property. The available options are: GridSelectionMode.Cell, GridSelectionMode.Row and GridSelectionMode.Column.
+        In this way you can set the grid to select only entire row, entire column or only single cell.</p>
+        <p>To enable or disable multi selection you must use the <code>Grid.Selection.EnableMultiSelection</code> property. 
+        You can select multiple cells using the mouse or with the Ctrl or Shift key.</p>
+        
+        <h3><a id="PositionAndRange">Position and Range</a></h3>
+        <p>
+            Two of the most used objects in the project are the structures <code>Position</code>
+            and <code>Range</code>. The struct <code>Position</code> identifies a position with
+            a Row and a Column, while the struct <code>Range</code> identifies a group of cells
+            delimited from a start <code>Position</code> and an end <code>Position</code>.</p>
+            
+        <p>You can read the actual location of a specified cell using <code>grid.PositionToRectangle</code> method. The resulting rectangle is relative to the grid client area. 
+        You can convert the resulting Rectangle to an absolute screen position using <code>grid.PointToScreen</code>.</p>
+        <p>You can obtain the <code>Position</code> for a specific client area <code>Point</code> using <code>grid.PositionAtPoint</code> method.</p>
+
+        <h3>CellContext</h3>
+        <p><code>CellContext</code> is a structure that encapsulates a <code>Cell</code> and a <code>Position</code> and contains all the method to manipulate the cells.<br />
+        The most important methods are: </p>
+        <ul>
+            <li>StartEdit/EndEdit - To start/stop editing on a specified cell</li>
+            <li>DisplayText - Returns the text of the cell (string)</li>
+            <li>Value - Returns the value of the cell (object)</li>
+        </ul>
+        <p>Here a common example that show how to use a <code>CellContext</code> class:</p>
+        <pre>
+SourceGrid.CellContext context = new SourceGrid.CellContext(grid, new SourceGrid.Position(r, c));
+context.Value = "hello";
+context.StartEdit();
+        </pre>
+        <p>Usually a <code>CellContext</code> instance is automatically created as a parameter of the controller events, in this way you can always access the main cell properties.</p>
+
+        <h2><a id="AdvancedFeatures">Advanced Features</a></h2>
+
+        <h3><a id="Border">Border</a></h3>
+        <p>Each <code>View</code> class has a property <code>Border</code> of type <code>DevAge.Drawing.IBorder</code>. The <code>DevAge.Drawing.IBorder</code> is a generic interface that can be used to draw a border around the cell.</p>
+        <p>Usually the <code>IBorder</code> interface it is implemented by the <code>DevAge.Drawing.RectangleBorder</code> structure.</p>
+        <p>Below an example to change a border of a cell:</p>        
+        <pre>
+DevAge.Drawing.Border border = new DevAge.Drawing.Border(Color.Red, 1);
+DevAge.Drawing.RectangleBorder cellBorder = new DevAge.Drawing.RectangleBorder(border, border);
+
+SourceGrid.Cells.Views.Cell view = new SourceGrid.Cells.Views.Cell();
+view.Border = cellBorder;
+
+grid[r, c].View = view;
+        </pre>
+        <p>The default border set only the Right and Bottom side, in this way when you have a group of cells you don't see a double border.</p>
+        <p>You can also set the border for the grid using the <code>Grid.BorderStyle</code> property.</p>
+        <p>See form sample 26 for more information.</p>
+
+        <h3><a id="ToolTip">ToolTip</a></h3>
+        <p>You can bind a ToolTip on each cell. You must create a <code>SourceGrid.Cells.Controllers.ToolTipText</code> controller and associate it to a cell. Here an example:</p>
+        <pre>
+SourceGrid.Cells.Controllers.ToolTipText toolTipController = new SourceGrid.Cells.Controllers.ToolTipText();
+toolTipController.ToolTipTitle = "ToolTip example";
+toolTipController.ToolTipIcon = ToolTipIcon.Info;
+toolTipController.IsBalloon = true;
+
+grid1[r, c] = new SourceGrid.Cells.Cell("Hello");
+grid1[r, c].ToolTipText = "Example of tooltip, bla bla bla ....";
+grid1[r, c].AddController(toolTipController);
+        </pre>
+        <p>The <code>ToolTipText</code> property of the cell automatically populates a <code>SourceGrid.Cells.Models.IToolTipText</code> interface bound to the standard cell.</p>
+        <img src="CellToolTip.png" alt="ToolTip" />
+        <p>See form sample 26 for more information.</p>
+        <p>Note: To use the ToolTip on a GridVirtual you must define your custom <code>SourceGrid.Cells.Models.IToolTipText</code> implementation that read the value from your data source and then add the controller and the model to the virtual cell. See form sample 41.</p>
+
+        <h3><a id="ContextMenu">ContextMenu</a></h3>
+        <p>You can create a ContextMenu (PopUp Menu) for a cell using the code below. First define a controller with the ContextMenu:</p>
+        <pre>
+//Define a controller with a ContextMenu
+public class PopupMenu : SourceGrid.Cells.Controllers.ControllerBase
+{
+	ContextMenu menu = new ContextMenu();
+	public PopupMenu()
+	{
+        menu.MenuItems.Add("Menu 1", new EventHandler(Menu1_Click));
+		menu.MenuItems.Add("Menu 2", new EventHandler(Menu2_Click));
+	}
+
+	public override void OnMouseUp(SourceGrid.CellContext sender, MouseEventArgs e)
+	{
+		base.OnMouseUp (sender, e);
+
+		if (e.Button == MouseButtons.Right)
+			menu.Show(sender.Grid, new Point(e.X, e.Y));
+	}
+
+    private void Menu1_Click(object sender, EventArgs e)
+    {
+        //TODO Your code here
+    }
+    private void Menu2_Click(object sender, EventArgs e)
+    {
+        //TODO Your code here
+    }
+}
+        </pre>
+        <p>Then add the controller to a cell:</p>
+        <pre>PopupMenu menuController = new PopupMenu();
+...
+grid1[r, c] = new SourceGrid.Cells.Cell("Hello");
+grid1[r, c].AddController(menuController);
+        </pre>
+        <p>See form sample 26 for more information.</p>
+
+
+        <h3><a id="Clipboard">Clipboard</a></h3>
+        <p>SourceGrid supports clipboard copy, paste and cut operations. To enable these features you can use this code:</p>
+        <pre>
+grid1.ClipboardMode = SourceGrid.ClipboardMode.All;
+        </pre>
+        <p>The user can then copy, paste and cut the selected cells using Ctrl+C, Ctrl+V or Ctrl+X or delete the content using Delete key.</p>
+        
+        <h3><a id="DragAndDrop">Drag and Drop</a></h3>
+        <p><b>NOT SUPPORTED:</b> From version 4.5 drag and drop is no more supported, I will try to insert this feature again soon.</p>
+
+
+        <h2><a id="Suggestions">Suggestions</a></h2>
+        <p>
+            Usually with SourceGrid you must do all the work with code, for this reason one
+            import suggestion is to organize it in a good and reusable manner. Here some tips:</p>
+        <p>
+            If you need to customize some aspects of the cell I usually suggest to create a
+            new class and write your customization code here. In this manner you can reuse your
+            class in all your application and forms. Suppose for example that you want to create
+            all the cells with a gray back color, you can write these new classes:</p>
+        <pre lang="cs">public class GrayView : SourceGrid.Cells.Views.Cell
+{
+	public new static readonly GrayView Default = new GrayView();
+	public GrayView()
+	{
+		BackColor = Color.LightGray;
+	}
+}
+
+public class GrayCell : SourceGrid.Cells.Cell
+{
+	public GrayCell(object val):base(val)
+	{
+		View = GrayView.Default;
+	}
+}</pre>
+
+        <p>
+            This rule can be applied to any aspects of the grid, for example you can create
+            a new <code>Controller</code> class and use it in your cell.</p>
+        <p>
+            Another important feature that we can see in the previous code is that I have assigned
+            the <code>View</code> property from a <code>static</code> variable. In this way
+            you can share the same instance with many cells, and optimize the resources of the
+            system.</p>
+        <p>
+            Another little suggestion is about the use of namespaces. Many SourceGrid classes
+            have the same name of some system classes. For example there is a <code>CheckBox</code>
+            cell with the same name of the <code>CheckBox</code> control of <code>System.Windows.Forms</code>,
+            for this reason is sometime difficult to use a normal using statement. If you don't
+            like to use a long namespace and want a more readable code I suggest to rename the
+            namespace in the using statement. For example you can replace this code:</p>
+        <pre lang="cs">SourceGrid.Cells.Button bt = new SourceGrid.Cells.Button();</pre>
+        <p>with:</p>
+        <pre lang="cs">using Cells = SourceGrid.Cells;
+.................
+Cells.Button bt = new Cells.Button();</pre>
+
+
+        <h2><a id="Extensions">Extensions</a></h2>
+        <p>Other then the default <code>Grid</code> control there are some extensions that can be used in some specific cases. 
+        You can directly use one of these extensions or you can copy the code and create your own extension.</p>
+        
+        <h3><a id="DataGrid">DataGrid</a></h3>
+        <p><code>SourceGrid.DataGrid</code> is control derived from <code>GridVirtual</code>
+            used for binding the data to a <code>DevAge.ComponentModel.BoundListBase</code> class.<br />
+        The <code>BoundListBase</code> is an abstract class that can be used to as a generic layer to binding any kind of list control to a list data source.<br />
+        Typically a data source is a <code>System.Data.DataView</code> or a custom list class. 
+        Currently there are 2 concrete classes that use <code>BoundListBase</code>:
+        </p>
+        <ul>
+            <li><code>DevAge.ComponentModel.BoundDataView</code> - Used for <code>System.Data.DataView</code>.</li>
+            <li><code>DevAge.ComponentModel.BoundList&lt;T&gt;</code> - Used for any <code>List&lt;T&gt;</code> class. You can use any kind of object with a default constructor and public property.</li>
+        </ul>        
+        <p>Basically the <code>DataGrid</code> control uses a special <code>Model</code> class of type <code>IValueModel</code> 
+        that reads the data directly from the data source. 
+        <code>SourceGrid.DataGrid</code> has a property <code>DataSource</code> used to store the <code>BoundListBase</code> object.
+         Here is a simple example on how to use this control:</p>
+        <pre lang="cs">//Create a sample DataTable
+DataTable table = new DataTable();
+table.Columns.Add("A", typeof(string));
+table.Columns.Add("B", typeof(bool));
+table.Rows.Add(new object[]{"Row 1", false});
+table.Rows.Add(new object[]{"Row 2", true});
+table.Rows.Add(new object[]{"Row 3", false});
+
+dataGrid1.DataSource = new DevAge.ComponentModel.BoundDataView(table.DefaultView);</pre>
+        <p>In the previous code I have created a <code>DataTable</code> with 2 columns and
+            some rows, then you can use the <code>DefaultView</code> property to retrieve a <code>DataView</code> class and assign it to the <code>DataGrid</code> control by creating an instance of a <code>BoundDataView</code> class. 
+            If you want you can customize the columns using the <code>Columns</code> property.
+            This property returns a collection of <code>DataGridColumn</code> objects, you can
+            customize each column to create customized cells. Here is an example:</p>
+        <pre lang="cs">//Create a custom View class
+SourceGrid.Cells.Views.Cell view = new SourceGrid.Cells.Views.Cell();
+view.BackColor = Color.LightBlue;
+//Manually add the column
+SourceGrid.DataGridColumn gridColumn;
+gridColumn = dataGrid.Columns.Add("Country", "Country", typeof(string));
+gridColumn.DataCell.View = view;</pre>
+        <p>In this example I have manually created a column and assigned a LightBlue back color at the cell.</p>
+        <p>You can also use the <code>DataGridColumn.Conditions</code> to dynamically change the data cell. 
+        For example in the following code I create a condition to use a different cell backcolor for even rows (alternate backcolor):</p>
+        <pre>SourceGrid.Conditions.ICondition condition = 
+    SourceGrid.Conditions.ConditionBuilder.AlternateView(gridColumn.DataCell.View, Color.LightGray, Color.Black);
+gridColumn.Conditions.Add(condition);</pre>
+        <p>In the following other example I create condition to use a View with a bold font and a green forecolor when a specific column is true.</p>
+        <pre>SourceGrid.Conditions.ConditionView selectedConditionBold = 
+        new SourceGrid.Conditions.ConditionView(viewSelected);
+selectedConditionBold.EvaluateFunction = delegate(SourceGrid.DataGridColumn column, 
+                                                    int gridRow, object itemRow)
+                {
+                    DataRowView row = (DataRowView)itemRow;
+                    return row["Selected"] is bool &amp;&amp; (bool)row["Selected"] == true;
+                };
+gridColumn.Conditions.Add(selectedConditionBold);</pre>
+        <p>Currently there are 2 types of conditions: <code>SourceGrid.Conditions.ConditionView</code> that can be used to use a special view and <code>SourceGrid.Conditions.ConditionCell</code> to use a completely different cell.
+        Both conditions can be used with a delegate to evaluate the row using your specific code.</p>
+        <p>In the sample project you can find more examples and code.</p>
+            
+        <h3><a id="ArrayGrid">ArrayGrid</a></h3>
+        <p>
+            <code>SourceGrid.ArrayGrid</code> is a control derived from <code>GridVirtual</code>
+            used to bind the grid to an array. You can use this control setting the <code>DataSource</code>
+            property with any <code>System.Array</code>. You can then customize the cells using
+            the <code>ValueCell, Header, RowHeader and ColumnHeader</code> properties.</p>
+            
+        <h3><a id="PlanningGrid">PlanningGrid</a></h3>
+        <p>
+            <code>SourceGrid.Planning.PlanningGrid</code> control is a <code>UserControl</code>
+            that internally use a real <code>Grid</code> to create a grid that can be used to
+            show appointments. You can call the <code>LoadPlanning</code> method to set the
+            range of the visible days and hours, and then add the appointments using the <code>Appointments</code>
+            properties. This is a collection of <code>IAppointment</code> interface (implemented
+            by the <code>AppointmentBase</code> class).</p>
+        <p>
+            Each appointment has a <code>View</code> property that can be used to customize
+            the appointment cell.</p>
+
+        <h2><a id="References">References</a></h2>
+        <p>DevAgeSourcePack references these assemblies:</p>
+        <ul>
+            <li><code>DevAge.Core.dll, DevAge.Windows.Forms.dll</code> - An open source library with many commons features for .NET. Contains the core of the drawing library and some of the controls used as editors. You can find this library at <a href="http://www.devage.com/Wiki/ViewArticle.aspx?name=devagesourcepack&amp;version=0">DevAgeSourcePack article</a> </li>
+        </ul>
+        <p>Remember to redistribute these assemblies with SourceGrid.dll.</p>
+
+        <h2><a id="FutureDevelopments">Future developments</a></h2>
+        <ul>
+            <li>Improve performance.</li>
+            <li>Support for other platform: PocketPC, Mono, ...</li>
+            <li>Better support for Windows Forms designer and other WYSIWYG features.</li>
+        </ul>
+        
+        <h2><a id="VBNET">VB.NET</a></h2>
+        <p>As any .NET control you can use SourceGrid with any .NET language, also VB.NET. Unfortunately I don't have any example for VB.NET, consider anyway that the code is very similar to C#. Here some of the more common differences:</p>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>C#</td>
+                    <td>VB.NET</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>double x;</td>
+                    <td>Dim x as Double</td>
+                </tr>
+                <tr>
+                    <td>typeof(string)</td>
+                    <td>GetType(String)</td>
+                </tr>
+                <tr>
+                    <td>Class.Event += new EventHandler(Class_Event);</td>
+                    <td>AddHandler Class.Event, Addressof Class_Event</td>
+                </tr>
+                <tr>
+                    <td>grid[r,c]</td>
+                    <td>grid.Item(r,c)</td>
+                </tr>
+                <tr>
+                    <td>
+                    <pre>
+public class Dog
+{
+    public Dog()
+    {
+    }
+    public string Name
+    {
+        get{return mName;}
+        set{mName = value;}
+    }
+}
+                    </pre>
+                    </td>
+                    <td>
+                    <pre>
+Public class Dog
+    Public sub New()
+    
+    End sub
+    
+    Public Property Name() as String
+        Get
+            Return mName
+        End Get
+        Set
+            mName = Value
+        End Set
+    End Property
+End class
+                    </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>List&lt;string&gt; x;</td>
+                    <td>Dim x as List(Of String)</td>
+                </tr>                                
+            </tbody>
+        </table>
+        
+        
+        
+        <h2><a id="FAQ">FAQ</a></h2>
+        <p>Frequently Asked Questions:</p>
+        <p>
+	        Q: <b>Can I use this project with Visual Studio 2005?</b>
+	        <br />
+	        A: Yes, SourceGrid is compiled with .NET 2 and Visual Studio 2005.
+        </p>
+        <p>
+	        Q: <b>Can I use this project with Visual Studio 2003?</b>
+	        <br />
+	        A: No, SourceGrid is compiled with .NET 2 and Visual Studio 2005. If you want you can use an older version (like SourceGrid 3).
+        </p>
+        <p>
+	        Q: <b>How can I create a tree view with SourceGrid? (hierarchical view)</b>
+	        <br />
+	        A: For now SourceGrid doesn't support this kind of view. I hope to work on this for a future release.
+        </p>
+        <p>
+	        Q: <b>Can I use these controls with ASP.NET?</b>
+	        <br />
+	        A: No, these are Windows Forms Controls. With Internet Explorer you can host a Windows Forms Control inside an html page, but it is usually not a good solution for web pages.
+        </p>
+        <p>
+	        Q: <b>Can I use these controls with .NET Compact Framework? And with Mono?</b>
+	        <br />
+	        A: Currently this project is compatible only with Microsoft .NET Framework and Windows platforms. 
+	        I'm working for porting some of the code to Mono and Compact Framework. 
+	        Consider anyway that all the code is written with managed C# so probably it is not too difficult to use this library with other frameworks.
+        </p>
+        
+        <h2>Special Thanks</h2>
+        <p>A special thanks to all who have helped to make this project with suggestions, bug reports, ideas and code.<br />
+        I've also benefited greatly from:</p>
+        <ul>
+            <li>Microsoft Sandcastle project and Sandcastle builder (<a href="http://www.codeplex.com/SHFB">http://www.codeplex.com/SHFB</a>) that I have used to build the chm documentation.</li>
+        </ul>
+        
+        <h2><a id="History">History</a></h2>
+        <h3>4.11 (27 Nov 2007)</h3>
+        <ul>
+            <li>IMPORTANT: Optimized drawing code to draw only the invalidated region (thanks to Xentor for the suggestions).</li>
+            <li>IMPORTANT: Optimized selection code to invalidated only the changed region (thanks to Xentor for the suggestions).</li>
+            <li>Changed the RangeRegion class to be directly a collection (ICollection) of Range objects. Removed the GetRanges method that now is no more required because you can directly access and iterate the Range using the RangeRegion class.</li>
+            <li>Changed the SelectionChanged event to use the new RangeRegionChangedEventArgs.</li>
+            <li>Fixed the DataGrid to check if the edit of the datasource is enabled (AllowEdit) when editing rows.</li>
+        </ul>
+        
+        <h3>4.10 (16 Oct 2007)</h3>
+        <ul>
+            <li>Fixed a bug in the RecalcCustomScrollBars when moving the focus on a partial visible row/column and both scrollbars are visible. Now I correctly calculate the rows to scroll.</li>
+            <li>Added the DataGridRows.DataSourceIndexToGridRowIndex method to convert a DataSource index to a grid row index.</li>
+            <li>Added the property ElementsDrawMode to the ViewBase class to support 'covering' drawing mode for the elements.</li>
+            <li>Changed the order of the event dispatched to fix some problems when you remove, add or change a row inside an event (for example MouseDown, MouseUp, Click). Now I first process system events and then custom events.</li>
+            <li>Fixed a bug on the ComboBox control when using a value not in the list and enter and leave the editing from another ComboBox.</li>
+            <li>Fixed a display bug in the editors to show the control only after changing the value to reduce the flickering.</li>
+            <li>Fixed a bug when drawing merged cells, to not draw many times the same cells</li>
+            <li>Updated the DevAgeSourcePack references to version 4.10 to fix some bugs (see DevAgeSourcePack History section for details)</li>
+        </ul>
+        
+        <h3>4.9 (17 June 2007)</h3>
+        <ul>
+            <li><b>IMPORTANT:</b>Added the ComboBox View to draw a ComboBox on the cell not only when activating the editor. See form 14 for an example.</li>
+            <li>Fixed a bug in the Rows/Columns to block AutoSize and Stretch for invisible columns/rows.</li>
+            <li>Fixed a bug in the ColumnsInsideRegion and RowsInsideRegion methods for invisible columns/rows</li>
+            <li>Extended sample 41 to show how to use select a DataGrid row and show the current selected row.</li>
+            <li>Fixed a strange bug when using Selection.Focus(Position.Emtpy) that cause the grid to receive the focus.</li>
+            <li>Fixed a bug in the RangeData.LoadData method to check if a value can be converted to string, used for example with the clipboard copy operation.</li>
+            <li>Updated the DevAgeSourcePack references to version 4.9 to fix some bugs (see DevAgeSourcePack History section for details)</li>
+            <li>Fixed a bug in the scroll code with big fixed rows or columns, thanks to Sacha.</li>
+            <li>Fixed a bug when exporting the grid to an image with merged cells (RowSpan/ColumnSpan &gt; 0).</li>
+            <li>Added a Grid property to the PlanningGrid to get the internal grid instance.</li>
+            <li>Restored the old code for the Button or Link cell using the KeyDown event to fire the action following the system Button behavior.</li>
+            <li>Marked as obsolete the CellControl class replaced by the Grid.LinkedControls collection.</li>
+            <li>Fixed a bug when using RemoveFocusCellOnLeave (to don't reset the selection)</li>
+            <li>Fixed a bug when drawing the selection border and there is a single selected range</li>
+            <li>Fixed a bug when using FocusFirstCellOnEnter to move the focus on the selection if there is a valid selected range (FocusFirstCell method)</li>
+            <li>Added the ignorePartial parameter in the ShowCell method to don't move the scrollbars when the user move the focus on a partial visible cell.</li>
+            <li>Fixed a bug in the Selection.ResetSelect and in the Selection.Focus when removing cells</li>
+        </ul>
+        <h3>4.8 (6 May 2007)</h3>
+        <ul>
+            <li>Updated the DevAgeSourcePack references to version 4.8 to fix some bugs (see DevAgeSourcePack History section for details)</li>
+	        <li>Renamed IBindedList to IBoundList</li>
+            <li>Renamed BindedListBase to BoundListBase</li>
+	        <li>Renamed BindedList to BoundList</li>
+	        <li>Renamed BindedDataView to BoundDataView</li>
+            <li>Fixed a bug in the TextBoxUITypeEditor when the text is not valid, especially for the DateTime editor (1615918).</li>
+            <li>Fixed a bug in the AutoSize and Measure of merged cells that caused the merged cells to not autosize correctly (1601792).</li>
+            <li>Signed SourceGrid assemblies with the .snk file</li>
+            <li>Replaced the BindedListBase with the IBoundList interface in the DataGrid implementation</li>
+            <li>Added a <code>Visible</code> property to the <code>ColumnInfo</code> and <code>RowInfo</code> class to show or hide columns or rows. For example you can hide a column with this code: <code>grid1.Columns[0].Visible = false;</code>. See form 50 for an example. (1569378)</li>
+            <li>Fixed a bug in the CellControl.UnBindToGrid method, used when removing or replacing CellControl cells.</li>
+            <li>Added support for nullable checkbox value. Now when the value of a checkbox is null the Undefined checkbox status is used. The Checked property now returns a Nullable bool value (bool?).</li>
+            <li>Fixed documentation English errors</li>
+            <li>Added <code>HeaderHeight</code> property in the <code>DataGridRows</code> class, which can be used to set the header height of the <code>DataGrid</code> control. (1604395)</li>
+        </ul>
+        <h3>4.7 (16 April 2007)</h3>
+        <ul>
+            <li>Fixed a bug in the scroll code (ShowCell method)</li>
+            <li>Extended the Controller documentation</li>
+        </ul>
+        <h3>4.6 (15 April 2007)</h3>
+        <ul>
+            <li>Fixed the SourceGrid.Cells.Views.Button to show when the button has the focus.</li>
+            <li>Fixed a bug when using a Button or Link cell that cause the execute event to be fired many times when you hold the key Space. Now I have handled the event on the KeyUp and added the Enter key (before I used the KeyPress).</li>
+            <li>Removed the border default padding to fix some bugs on the cell borders</li>
+            <li>Updated the DevAgeSourcePack references to version 4.6</li>
+            <li>Fixed the scrollbars to scroll only the required columns/rows and correctly stop at the end</li>
+            <li>Fixed a bug on the Measure method used to AutoSize the columns and rows size</li>
+            <li>Added the CHM documentation api reference using Sandcastle</li>
+        </ul>
+        
+        <h3>4.5 BETA (18 March 2007)</h3>
+        <p>This is a major release with many inportant changes and improvements.
+         Consider that this is a BETA release and probably there are still some bugs and problems. This version can can be unstable.
+         Use the forum for submitting bugs or if you have problems.</p>
+        <ul>
+            <li><b>IMPORTANT:</b>New structure of the selection class. See 'Focus and Selection' paragraph in this article for more information.</li>
+            <li><b>IMPORTANT:</b>New SourceGrid.DataGrid class that now support also custom object binding and reviewed some code. See DataGrid section for more information.</li>
+            <li><b>IMPORTANT:</b>New internal structure of the SourceGrid.Grid class, to store rows and columns information in a list object for better performance.</li>
+            <li><b>IMPORTANT:</b>Removed all the Panels structure (GridSubPanel class).</li>
+            <li><b>IMPORTANT:</b>Reviewed positioning methods</li>
+            <li><b>IMPORTANT:</b>Reviewed view methods to customize sub elements (IText, IImage, ...)</li>
+            <li><b>IMPORTANT:</b>Reviewed grid controllers and events structure.</li>
+            <li><b>IMPORTANT:</b>Events and methods more integrated with the standard .NET conventions</li>
+            <li><b>IMPORTANT:</b>Updated DevAgeSourcePack references to version 4.3</li>
+            <li><b>IMPORTANT:</b>Removed many obsolete code</li>
+            <li><b>IMPORTANT:</b>Removed drag and drop support (I will try to implement it again soon)</li>
+        
+            <li>Fixed a bug on handling TabStop property and Tab navigation. Now the grid move the focus on the other controls of the form when required.</li>
+            <li>Added the property <code>Editor.UseCellViewProperties</code>. The default is true. Set this property to false to manually change the editor control ForeColor, BackColor and Font, otherwise the editor read these properties from the View class.</li>
+            <li>Added the event <code>Editor.KeyPress</code> that can be used to handle any key press of the editor (also when the user start the edit operation with a key)</li>
+            <li>Fixed a bug in the ComboBox when using DropDownList and custom display text</li>
+            <li>Removed resizable headers for ArrayGrid</li>
+            <li>Fixed a bug in the NumericUpDown editor to correctly use Maximum, Minimum and Increment variables</li>
+            <li>Fixed a bug when changing the active cell and in the code executed when the grid lost the focus. 
+                Now only if requred the focus is moved inside the grid. 
+                The bug caused the grid to receive the focus when calling grid.Selection.Focus(Empty). 
+                See Selection.Focus method for more information.</li>
+            <li>Added an example on form 3 that use GDI+ drawing features.</li>
+            <li>Changed the clipboard implementation. See Clipboard section for more information.</li>
+            <li>Fixed a bug on some Views copy constructor (clone).</li>
+            <li>Added to the form 3 a sample to to implement an editor to select a file using OpenFileDialog.</li>
+            <li>Changed the PlanningGrid control to don't stretch or autosize the first 2 column headers.</li>
+            <li>Improved the PlanningGrid control. Added the PlanningGrid.AppointmentClick and PlanningGrid.AppointmentDoubleClick events that can be used when the used click on the grid and reviewed some of the code.</li>
+            <li>Moved the SelectionMode property from grid.Selection.SelectionMode to grid.SelectionMode</li>
+            <li>Removed the GridVirtual.InvalidateCells method (use directly the GridVirtual.Invalidate)</li>
+            <li>New schema version with automatic revision and build numbers</li>
+            <li>Removed the selection events on the cell Controller. If you need to customized the selection you must directly use the Selection object.</li>
+            <li>New structure for the LinkedControlList (Editors and CellControl)</li>
+            <li>Added the sample form 49 to show the use of the DataGrid bound with custom entities</li>
+            <li>Reviewed sample code and documentation</li>
+            <li>Removed the StyleGrid property, style no more supported</li>
+        </ul>
+        
+        <h3>4.0.0.4 BETA (10 Nov 2006)</h3>
+        <ul>
+            <li>Update references to DevAgeSourcePack 4.0.0.8. (Removed ODL.dll reference)</li>
+            <li>Improved View classes for a better customization. Now support flat headers, not themed headers, alternate back color, linear gradient, .... See <a href="#View">View</a> and form 28 or 48 for an example. (Request ID: 1571395)</li>
+            <li>Fixed a bug when drawing merged cells (ColSpan or RowSpan &gt; 1) (Request ID: 1588870).</li>
+            <li>Fixed a bug to show the scrollbars only when necessary (Request ID: 1584957)</li>
+            <li>Fixed a bug in the MouseSelection class to don't execute again the Editor.EndEdit, because it is already executed inside the Controllers.Grid</li>
+            <li>Changed the View.Border property to return an IBorder instance. The previous RectangleBorder class implements the IBorder interface, but this interface can also be implemented by different border style. See also See <a href="#Border">Border</a></li>
+            <li>Fixed a bug to correctly call GiveFeedback event, and some other minors improvements. (Request ID: 1585697)</li>
+            <li>Fixed the Button and CheckBox controllers to execute the action only when the left mouse button is pressed.</li>
+            <li>Added new features for the ToolTip. Now you can set the Icon, Title, BackColor and ForeColor properties of the ToolTipText Controller. See <a href="#ToolTip">ToolTip</a> or form sample 26 for more information.</li>
+            <li>Removed the GridToolTipActive property (no more used, probably you must remove the property from the designer generated code).</li>
+            <li>Improved AutoScroll and IsVisibleCell test. Now if a cell is partially visible the autoscroll is not executed.</li>
+        </ul>
+        
+        <h3>4.0.0.3 BETA (13 October 2006)</h3>
+        <ul>
+            <li>Fixed a bug in the invalidate method that caused the cells to don't refresh correctly.</li>
+            <li>Fixed a bug in the editors when start editing with a keybord key. Now only the TextBox use the key. I have removed the SendKeys features because some problems on international keybords.</li>
+            <li>Fixed a bug when using the &amp; character inside a cell text.</li>
+            <li>Update references to DevAgeSourcePack 4.0.0.5</li>
+            <li>Improved the mouse multi selection code and automatic scrolling.</li>
+        </ul>
+
+        <h3>4.0.0.2 BETA (08 October 2006)</h3>
+        <ul>
+            <li>Changed some internal structure of the View class for better flexibility.</li>
+            <li>Extended "Sample 3" to show how to implement rotated text (see RotateTextView).</li>
+            <li>Fixed some important bugs for the scrollbars.</li>
+            <li>Reviewed many internal parts to handle scrolling and to calculate positions of the cells. Now all the cell positions are relative to the current view, so there is no more the concept of an aboslute cell position. This is usefull to correctly handle grid with many rows.</li>
+            <li>Implemented the AutoSizeMode features also for GridVirtual derived grids.</li>
+            <li>Updated references to DevAgeSourcePack 4.0.0.4</li>
+            <li>Fixed a bug in the AutoSize methods.</li>
+        </ul>
+
+        <h3>4.0.0.1 BETA (01 October 2006)</h3>
+        <p>
+            SourceGrid 4 is the evolution of the SourceGrid 3 control. The major differences are:</p>
+        <ul>
+            <li>Some minor corrections for VS 2005</li>
+            <li>Replaced Grid.AutoSize method with Grid.AutoSizeCells</li>
+            <li>Changed the default selection border width to 2 pixels</li>
+            <li>Changed the ComboBoxType control with the DevAgeComboBox. DevAgeComboBox is a new class that internally use the system ComboBox for a better compatibility and a more robust code support.</li>
+            <li>Replaced the TypedComboBox, TypedTextBox and other windows form controls with the DevAgeCombo, DevAgeTextBox, ... for better compatibility using system controls.</li>
+            <li>Review some of the code for the Validator classes and added a Changed event.</li>
+            <li>Fixed some error when display UITypeEditor controls.</li>
+            <li>Added a RectangleBorderRelative property to the Selection and the HighlightedRange class, used to fix a problem when drawing range on fixed cols or rows</li>
+            <li>Added MultiColumnsComparer, to sort multiple columns automatically</li>
+            <li>Added Selection.MoveActiveCell method to move the focus to a specific direction. Used with the arrow and tab keys.</li>
+            <li>Added the new DevAge.Drawing.VisualElements classes to draw elements parts (image, text, xp theme element, ...). This is basically a little drawing framework that support aggregation of parts of elements.</li>
+            <li>Used the new DevAge.Drawing.VisualElements for all SourceGrid cells drawing.</li>
+            <li>Removed the DevAge.WindowsPlatform project. Now all the XP theme support is 100% managed (no Interop or windows API).</li>
+            <li>Merged the DevAge.Data and DevAge.Utilities with the DevAge.Core project.</li>
+            <li>Merged the DevAge.Drawing project with the DevAge.Windows.Forms project.</li>
+            <li>Used the new TextRenderer class.</li>
+            <li>Add the ability to change the Font of the cell headers</li>
+            <li>Added the Mirrored property for RTL (RightToLeft support)</li>
+            <li>Moved the SourceGrid3.Cells.Real classes to the namespace SourceGrid3.Cells for a more compact naming.</li>
+            <li>Renamed SourceGrid3 namespace to SourceGrid</li>
+            <li>Renamed DevAge.SourceGrid3 assembly to DevAge.SourceGrid</li>
+            <li>Renamed DevAge.SourceGrid3.Extensions assembly to DevAge.SourceGrid.Extension</li>
+            <li>SourceGrid.Utilities.CreateEditor replaced with SourceGrid.Cells.Editors.Factory.Create</li>
+        </ul>
+        <h3><a id="PreviousVersions">Previous versions</a></h3>
+        <p>You can find more information about previous SourceGrid versions at this link:
+        <a href="http://www.devage.com/">http://www.devage.com/</a>
+        </p>
+
+    <h2><a id="License">License</a></h2>
+    <p>
+        SourceGrid LICENSE (MIT style)<br />
+        <br />
+        Copyright (c) 2006 www.devage.com, Davide Icardi<br />
+        <br />
+        Permission is hereby granted, free of charge, to any person obtaining 
+        a copy of this software and associated documentation files (the "Software"),
+        to deal in the Software without restriction, including without limitation 
+        the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+        and/or sell copies of the Software, and to permit persons to whom the 
+        Software is furnished to do so, subject to the following conditions:<br />
+        <br />
+        The above copyright notice and this permission notice shall be included 
+        in all copies or substantial portions of the Software.<br />
+        <br />
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
+        OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+        IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+        DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+        ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+        DEALINGS IN THE SOFTWARE.<br />
+    </p>
+
+</body>
+</html>

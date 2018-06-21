@@ -1,0 +1,52 @@
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+
+Clear data structure: 0ReViewerLineNumSuggestionList.Count
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+not .cs file
+
+Entered GotFocus 
+Entered GotFocus 

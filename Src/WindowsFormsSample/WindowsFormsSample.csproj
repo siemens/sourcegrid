@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A077A72-7CEF-4198-96CB-1DE418F575F2}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>WindowsFormsSample</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WindowsFormsSample</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccProjectName>Rational ClearCase</SccProjectName>
+    <SccLocalPath>Rational ClearCase</SccLocalPath>
+    <SccAuxPath>Rational ClearCase</SccAuxPath>
+    <SccProvider>Rational ClearCase</SccProvider>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\Out\win32\MSVS2008_SP1\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\Out\win32\MSVS2008_SP1\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample45.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample45.Designer.cs">
+      <DependentUpon>frmSample45.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridSamples\frmSample46.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample14.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample17.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample18.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample19.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample21.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample24.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample25.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample26.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample27.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample28.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample29.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample41.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample42.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample43.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample44.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample47.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample47.Designer.cs">
+      <DependentUpon>frmSample47.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridSamples\frmSample48.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample48.Designer.cs">
+      <DependentUpon>frmSample48.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridSamples\frmSample49.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample49.Designer.cs">
+      <DependentUpon>frmSample49.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridSamples\frmSample50.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample50.Designer.cs">
+      <DependentUpon>frmSample50.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridSamples\frmSample51.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridSamples\frmSample51.Designer.cs">
+      <DependentUpon>frmSample51.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridSamples\frmSample9.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SampleAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <None Include="Resources\BackGround.bmp" />
+    <None Include="Resources\CalcioSmall.bmp" />
+    <EmbeddedResource Include="GridSamples\frmSample45.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSample45.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample46.resx">
+      <DependentUpon>frmSample46.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Resources\FACE00.ICO" />
+    <None Include="Resources\FACE01.ICO" />
+    <None Include="Resources\FACE02.ICO" />
+    <None Include="Resources\FACE04.ICO" />
+    <EmbeddedResource Include="GridSamples\frmSample1.resx">
+      <DependentUpon>frmSample1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample14.resx">
+      <DependentUpon>frmSample14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample17.resx">
+      <DependentUpon>frmSample17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample18.resx">
+      <DependentUpon>frmSample18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample19.resx">
+      <DependentUpon>frmSample19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample21.resx">
+      <DependentUpon>frmSample21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample24.resx">
+      <DependentUpon>frmSample24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample25.resx">
+      <DependentUpon>frmSample25.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample26.resx">
+      <DependentUpon>frmSample26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample27.resx">
+      <DependentUpon>frmSample27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample28.resx">
+      <DependentUpon>frmSample28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample29.resx">
+      <DependentUpon>frmSample29.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample3.resx">
+      <DependentUpon>frmSample3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample4.resx">
+      <DependentUpon>frmSample4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample41.resx">
+      <DependentUpon>frmSample41.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample42.resx">
+      <DependentUpon>frmSample42.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample43.resx">
+      <DependentUpon>frmSample43.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample44.resx">
+      <DependentUpon>frmSample44.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample47.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSample47.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample48.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSample48.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample49.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSample49.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample50.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSample50.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample51.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmSample51.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\frmSample9.resx">
+      <DependentUpon>frmSample9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSamples\SampleData.xml" />
+    <EmbeddedResource Include="GridSamples\SampleData2.xml" />
+    <None Include="Resources\Star.ico" />
+    <None Include="Resources\StarOff.gif" />
+    <None Include="Resources\trash.ico" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartForm.resx">
+      <DependentUpon>StartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SourceGrid.csproj">
+      <Project>{2a5a1657-dba8-4117-8e2a-9f1236ace9e2}</Project>
+      <Name>SourceGrid</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

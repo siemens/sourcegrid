@@ -1,0 +1,47 @@
+Author: Torsten Ackerschewski
+Date: 18.07.2008
+File: GridVirtual.cs
+
+Description:
+The grid crashes if the last cell is selected, the TAB key has been pressed and there is
+no other control on the form. Same error occurres, if the first cell is selected and than
+the TAB key has been pressed.
+
+Fix:
+The result of the FindForm method will be checked before using this reference. If the result is null,
+we set the focus to the first (last if shift+tab is pressed) possible cell.
+
+
+Code:
+	public virtual void ProcessSpecialGridKey(KeyEventArgs e)
+	{
+	...
+            else if (e.KeyCode == Keys.Tab && enableTab)
+            {
+                //If the tab failed I automatically select the next control in the form (SelectNextControl)
+                if (e.Modifiers == Keys.Shift) // backward
+                {
+                    if (Selection.MoveActiveCell(0, -1, -1, int.MaxValue) == false)
+                    {
+                        Form form = FindForm();
+                        if (form != null)
+                            form.SelectNextControl(this, false, true, true, true);
+                        else Selection.Focus(new Position(this.m_Rows.Count - 1, this.m_Columns.Count - 1), true);
+                    }
+                    e.Handled = true;
+                }
+                else //forward
+                {
+                    if (Selection.MoveActiveCell(0, 1, 1, int.MinValue) == false)
+                    {
+                        Form form = FindForm();
+                        if (form != null)
+                            form.SelectNextControl(this, true, true, true, true);
+                        else Selection.Focus(new Position(0, 0), true);
+                    }
+                    e.Handled = true;
+                }
+            }
+	...
+        }
+
