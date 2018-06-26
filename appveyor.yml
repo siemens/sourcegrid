@@ -1,0 +1,18 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+install:
+- cmd: nuget update -self
+before_build:
+- cmd: nuget restore
+build:
+  project: SourceGrid_2013.sln
+  verbosity: minimal
+test:
+  assemblies:
+    only:
+    - Out\Test\Release\SourceGrid.Tests.dll
+artifacts:
+- path: Out\Win32
+  name: SourceGrid
