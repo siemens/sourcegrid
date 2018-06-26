@@ -26,6 +26,8 @@ There only a few preconditions which must be fullfilled.
 8. Introduced a disabled cell mode
 9. Fixed bugs in clipboard, spanning etc
 
+Refer [Changes_Wiki](https://github.com/siemens/sourcegrid/wiki/Changes) for more information
+
 # License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/siemens/sourcegrid/blob/master/LICENSE) file for details 
 
