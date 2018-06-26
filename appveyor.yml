@@ -2,8 +2,6 @@ version: 4.40.{build}
 pull_requests:
   do_not_increment_build_number: true
 image: Visual Studio 2017
-configuration: Release
-platform: Any CPU
 environment:
   matrix:
   - solution_name: SourceGrid_2013.sln
