@@ -9,7 +9,7 @@ install:
 before_build:
 - cmd: nuget restore
 build:
-  project: SourceGrid_2013.sln
+  project: SourceGrid_2013.sln; Src/WindowsFormsSample/WindowsFormsSample.sln
   verbosity: minimal
 test:
   assemblies:
