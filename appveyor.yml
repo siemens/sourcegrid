@@ -4,12 +4,16 @@ pull_requests:
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
+environment:
+  matrix:
+  - solution_name: SourceGrid_2013.sln
+  - solution_name: Src/WindowsFormsSample/WindowsFormsSample.sln
 install:
 - cmd: nuget update -self
 before_build:
 - cmd: nuget restore
 build:
-  project: SourceGrid_2013.sln; Src/WindowsFormsSample/WindowsFormsSample.sln
+  project: '%solution_name%'
   verbosity: minimal
 test:
   assemblies:
