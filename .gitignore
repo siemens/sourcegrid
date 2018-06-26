@@ -1,8 +1,9 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
-
+/.vs
 /Src/obj
 /Src/SourceGrid/obj
 /Src/SourceGrid.Extensions/obj
 /Src/WindowsFormsSample/obj
+/Src/WindowsFormsSample/.vs/WindowsFormsSample/v15/Server/sqlite3
