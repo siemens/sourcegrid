@@ -12,7 +12,7 @@ For more detailed information, Refer article at [CodeProject](https://www.codepr
 
 There only a few preconditions which must be fullfilled.
 
-* Visual Studio 2013(preferred)
+* Visual Studio 2017
 * .Net 3.5
 
 # Changes:
