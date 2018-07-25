@@ -4,7 +4,7 @@
 SourceGrid is a free open source grid control. Supports virtual grid, custom cells and editors, advanced formatting options and many others features
 SourceGrid is a Windows Forms control written entirely in C#, goal is to create a simple but flexible grid to use in all of the cases in which it is necessary to visualize or to change a series of data in a table format. There are a lot of controls of this type available, but often are expensive, difficult to be customize or not compatible with .NET. SourceGrid allows users to have customizable datasource which is not in DataSet format.
 
-![Overview Image](https://github.com/siemens/sourcegrid/blob/master/img/SourceGrid_Overview.jpg)
+![Overview Image](/img/SourceGrid_Overview.jpg)
 
 For more detailed information, Refer article at [CodeProject](https://www.codeproject.com/Articles/3531/SourceGrid-Open-Source-C-Grid-Control)
 
