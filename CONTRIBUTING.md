@@ -23,7 +23,7 @@ The mentioned links from Atlassian are the recommended docs to read and understa
 ### Contributions on sourcegrid repository
 
 **Before you do any changes make sure you are using the latest revision of the repository.**
-1. To contibute you first need a branch for the feature.
+1. To contribute you first need a branch for the feature.
 
 2. Do your changes give appropriate comments.
 
@@ -32,9 +32,11 @@ The mentioned links from Atlassian are the recommended docs to read and understa
 4. After committing your changes, push the changes on to your branch.
 
 5. Create a merge-request by selecting 'Merge Requests' on the left menu and click 'New Merge Request'. In the following view choose your branch as the source branch and select master as the target branch.
-6. Click on "Compare branches", add some description, like what you would like to achieve with your changes and assign the request.
-Click "Submit merge request".
 
+6. Commit/Merge request message should adhere to ![changelog convention](img/Conventional_Changelog.png)
+
+7. Click on "Compare branches", add some description, like what you would like to achieve with your changes and assign the request.
+Click "Submit merge request".
 
 
 ### License Headers
