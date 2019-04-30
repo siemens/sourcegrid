@@ -10,4 +10,4 @@
 - Performance improvement while loading grid- CreateControl
 - Selectable readonly cells
 - Introduced a disabled cell mode
-- Fixed bugs in clipboard, spanning etc
+- Fixed bugs in clipboard, spanning etc.
