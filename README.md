@@ -10,23 +10,19 @@ For more detailed information, Refer article at [CodeProject](https://www.codepr
 
 # Preconditions
 
-There only a few preconditions which must be fulfilled.
+- Visual Studio 2022
+- .NET 6
 
-* Visual Studio 2017
-* .Net 3.5
+# Changes
 
-# Changes:
-1. Enhancement: Smooth horizontal and vertical scrolling
-2. Enhanced Freeze panes(FixedRow and FixedColumn) and made it independent of Header row\column count
-3. Introduced a boundary(defined by user) to stop auto scrolling
-4. Filter row support in DataGrid
-5. Support for Drag and drop of cells
-6. Performance improvement while loading grid- CreateControl
-7. Selectable readonly cells
-8. Introduced a disabled cell mode
-9. Fixed bugs in clipboard, spanning etc
+- Upgraded project file format to SDK-style.
+- Changed target framework from .NET 3.5 to .NET 6.
+- Fixed obsolete code. For example: ContextMenu is replaced by ContextMenuStrip.
+- Removed unused code files.
 
-Refer [Changes_Wiki](https://github.com/siemens/sourcegrid/wiki/Changes) for more information
+See CHANGELOG.md for more information.
+
+See https://github.com/siemens/sourcegrid for original README.
 
 # License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/siemens/sourcegrid/blob/master/LICENSE) file for details 

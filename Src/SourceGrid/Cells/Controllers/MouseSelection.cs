@@ -58,6 +58,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using Timer = System.Windows.Forms.Timer;
 
 namespace SourceGrid.Cells.Controllers
 {

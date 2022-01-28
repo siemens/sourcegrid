@@ -1,6 +1,14 @@
 # SourceGrid
 
-## Major Changes
+## v6.0.0 (January 2022)
+
+- Upgraded project file format to SDK-style.
+- Changed target framework from .NET 3.5 to .NET 6.
+- Moved DevAge.* source files into SourceGrid folder.
+- Fixed obsolete code. For example: ContextMenu is replaced by ContextMenuStrip.
+- Removed unused code files.
+
+## Major Changes of v4.40.4580
 
 - Enhancement: Smooth horizontal and vertical scrolling
 - Enhanced Freeze panes(FixedRow and FixedColumn) and made it independent of Header row\column count
