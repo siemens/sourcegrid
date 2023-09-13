@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <AssemblyName>SourceGrid</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\User.YOUR-2F73F42422\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <SignAssembly>true</SignAssembly>
@@ -68,16 +68,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutputPath>..\Out\Win32\msvs2013_NET35\Debug\</OutputPath>
-    <DocumentationFile>..\Out\Win32\msvs2013_NET35\Debug\SourceGrid.XML</DocumentationFile>
+    <OutputPath>..\Out\Win32\msvs2019_NET48\Debug\</OutputPath>
+    <DocumentationFile>..\Out\Win32\msvs2019_NET48\Debug\SourceGrid.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutputPath>..\Out\Win32\msvs2013_NET35\Release\</OutputPath>
-    <DocumentationFile>..\Out\Win32\msvs2013_NET35\Release\SourceGrid.XML</DocumentationFile>
+    <OutputPath>..\Out\Win32\msvs2019_NET48\Release\</OutputPath>
+    <DocumentationFile>..\Out\Win32\msvs2019_NET48\Release\SourceGrid.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Prefer32Bit>false</Prefer32Bit>
