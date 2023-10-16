@@ -74,4 +74,38 @@ jobs:
         name: nuget-TEST
         path: |
           *.nupkg
+
+  release:
+    if: github.ref == 'refs/heads/Github_runner'    
+    runs-on: windows-latest
+    needs: build
+  
+    steps:
+      - name: Download Build Output
+        uses: actions/download-artifact@v2
+        with:
+          name: sourcegrid
+
+      - name: Download NuGet Package
+        uses: actions/download-artifact@v2
+        with:
+          name: nuget-sourcegrid
+
+      - name: Download NuGet Packages from Release
+        run: |
+            Write-Host "GITHUB_REF: '$($env:GITHUB_REF)'"
+            $prefix = "refs/tags/"
+            $name = $($env:GITHUB_REF).Substring($prefix.Length)
+            Write-Host "name: '$name'"
+            gh release download $name --repo siemens/continuous-clearing --pattern '*.nupkg' --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to github packages
+        run: |          
+          dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://www.nuget.org"
+          dotnet nuget push "*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source github
+        env:
+            USERNAME: ${{ secrets.USERNAME }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        
