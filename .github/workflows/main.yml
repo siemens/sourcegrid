@@ -8,7 +8,7 @@ on:
 jobs:
 
   build:
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     defaults:
       run:
@@ -47,13 +47,14 @@ jobs:
         $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
         $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid" 
         New-Item -ItemType Directory -Force -Path $outFolder
-        $fileName = "sourcegrid-4.0.0.zip"
+        $fileName = "sourcegrid-1.0.0.zip"
         Write-Host "Filename: '$fileName'"
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
         Write-Host "::set-output name=sourcegrid::$($fileName)"
         $outPath = Join-Path $outFolder $fileName
         Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
+        
     - name: Archive Build Output
       uses: actions/upload-artifact@v2
       with:
