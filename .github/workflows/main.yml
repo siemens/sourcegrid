@@ -60,4 +60,18 @@ jobs:
          name: sourcegrid
          path: |
             out/sourcegrid
+
+
+    - name: Create Nuget Packages 
+      id: createNupkg
+      run: |
+        nuget pack CA.nuspec -Version 1.0.0
+        Write-Host "::set-output name=nupkg-LicenseClearingTool::TEST.1.0.0.nupkg"
+        
+    - name: Archive NuGet Packages
+      uses: actions/upload-artifact@v2
+      with:
+        name: nuget-TEST
+        path: |
+          *.nupkg
        
