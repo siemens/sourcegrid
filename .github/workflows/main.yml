@@ -1,0 +1,63 @@
+name: Build on Github servers
+
+on: 
+ push:
+ pull_request:
+
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: .
+      
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  
+
+    - name: Setup msbuild
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+          vs-version: '12.0'
+     
+      
+    - name: Restore Packages
+      run: Nuget restore SourceGrid_2013.sln
+
+    - name: Build
+      run: msbuild -m -t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /fl SourceGrid_2013.sln
+        
+    
+    - name: Archive Build Log
+      uses: actions/upload-artifact@v2
+      if: ${{ success() || failure() }}
+      with:
+        name: Compile_Solution_log
+        path: |
+          *.log    
+    
+    - name: Create zip
+      id: packageBuildResults
+      run: |
+        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
+        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid" 
+        New-Item -ItemType Directory -Force -Path $outFolder
+        $fileName = "sourcegrid-4.0.0.zip"
+        Write-Host "Filename: '$fileName'"
+        Write-Host "sourceFolder: '$sourceFolder'"
+        Write-Host "Outfolder: '$outFolder'"
+        Write-Host "::set-output name=sourcegrid::$($fileName)"
+        $outPath = Join-Path $outFolder $fileName
+        Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
+    - name: Archive Build Output
+      uses: actions/upload-artifact@v2
+      with:
+         name: sourcegrid
+         path: |
+            out/sourcegrid
+       
