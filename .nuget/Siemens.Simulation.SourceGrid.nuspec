@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Siemens.Simulation.SourceGrid</id>
+    <version>4.40.1</version>
+    <title>Siemens.Simulation.SourceGrid</title>
+    <authors>AuthorName</authors>
+    <owners>OwnerName</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Unauthorized copy, only for SIP5-Simu, do not use! This package is a unofficial fork of the original package for use by SIP5-Simu.
+    </description>
+    <summary>Empty</summary>
+    <language>Empty</language>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8" >
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Out\Win32\msvs2019_NET48\Release\SourceGrid.dll" target="lib\net48"/>
+  </files></package>
