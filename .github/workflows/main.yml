@@ -89,7 +89,7 @@ jobs:
       - name: Download NuGet Package
         uses: actions/download-artifact@v2
         with:
-          name: nuget-sourcegrid
+          name: nuget-TEST
 
       - name: Download NuGet Packages from Release
         run: |
