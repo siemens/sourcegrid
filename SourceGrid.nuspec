@@ -28,5 +28,5 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Out\Win32\msvs2013_NET35\Release\SourceGrid.dll" target="lib\net35"/>
+    <file src="..sourcegrid\Out\Win32\msvs2013_NET35\Release\SourceGrid.dll" target="lib\net35"/>
   </files></package>
