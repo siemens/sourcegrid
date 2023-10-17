@@ -76,7 +76,7 @@ jobs:
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
       with:
-        name: SourceGrid
+        name: nuget-SourceGrid
         path: |
           *.nupkg
 
@@ -89,7 +89,7 @@ jobs:
       - name: Download Build Output
         uses: actions/download-artifact@v2
         with:
-          name: sourcegrid
+          name: nuget-sourcegrid
 
       - name: Download NuGet Package
         uses: actions/download-artifact@v2
