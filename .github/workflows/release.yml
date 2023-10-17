@@ -36,5 +36,4 @@ jobs:
         run: |          
           dotnet nuget push "*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://api.nuget.org/v3/index.json"
         env:
-            USERNAME: ${{ secrets.USERNAME }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
