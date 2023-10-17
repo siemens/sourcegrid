@@ -34,8 +34,7 @@ jobs:
 
       - name: Publish to github packages
         run: |          
-          dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://www.nuget.org"
-          dotnet nuget push "*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source github
+          dotnet nuget push "*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://api.nuget.org/v3/index.json"
         env:
             USERNAME: ${{ secrets.USERNAME }}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
