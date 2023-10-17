@@ -71,7 +71,7 @@ jobs:
       id: createNupkg
       run: |
         nuget pack SourceGrid.nuspec -Version 1.0.0
-        Write-Host "::set-output name=nupkg-sourcegrid::TEST.1.0.0.nupkg"
+        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.1.0.0.nupkg"
         
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
