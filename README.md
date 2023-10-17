@@ -12,8 +12,8 @@ For more detailed information, Refer article at [CodeProject](https://www.codepr
 
 There only a few preconditions which must be fulfilled.
 
-* Visual Studio 2017
-* .Net 3.5
+* Visual Studio 2022
+* .Net 4.8
 
 # Changes:
 1. Enhancement: Smooth horizontal and vertical scrolling
