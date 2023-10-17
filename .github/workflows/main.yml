@@ -76,7 +76,7 @@ jobs:
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
       with:
-        name: sourcegrid-TEST
+        name: nuget-TEST
         path: |
           *.nupkg
 
