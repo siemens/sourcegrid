@@ -89,12 +89,12 @@ jobs:
       - name: Download Build Output
         uses: actions/download-artifact@v2
         with:
-          name: nuget-sourcegrid
+          name: sourcegrid
 
       - name: Download NuGet Package
         uses: actions/download-artifact@v2
         with:
-          name: SourceGrid
+          name: nuget-SourceGrid
 
       - name: Debug
         run: |
