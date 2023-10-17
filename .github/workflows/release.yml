@@ -1,0 +1,41 @@
+name: Publish NuGet Packages
+
+on:
+  release:
+    types: [published]
+    
+permissions:
+  packages: write
+  contents: read  
+  
+jobs:
+  build:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: .
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+         fetch-depth: 0  
+
+      - name: Download NuGet Packages from Release
+        run: |
+            Write-Host "GITHUB_REF: '$($env:GITHUB_REF)'"
+            $prefix = "refs/tags/"
+            $name = $($env:GITHUB_REF).Substring($prefix.Length)
+            Write-Host "name: '$name'"
+            gh release download $name --repo siemens/continuous-clearing --pattern '*.nupkg' --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to github packages
+        run: |          
+          dotnet nuget add source --username ${{ secrets.USERNAME }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://www.nuget.org"
+          dotnet nuget push "*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source github
+        env:
+            USERNAME: ${{ secrets.USERNAME }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
