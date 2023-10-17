@@ -94,7 +94,7 @@ jobs:
       - name: Download NuGet Package
         uses: actions/download-artifact@v2
         with:
-          name: sourcegrid-TEST
+          name: nuget-TEST
 
       - name: Debug
         run: |
