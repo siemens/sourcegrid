@@ -15,7 +15,7 @@ jobs:
     outputs:
          semver: ${{ steps.gitversion.outputs.semver }}
          sourcegrid: ${{ steps.packageBuildResults.outputs.sourcegrid }}  
-         nupkg-sourceGrid: ${{ steps.createNupkg.outputs.nupkg-sourcegrid }}
+         nupkg-sourceGrid: ${{ steps.createNupkg.outputs.nupkg-Sourcegrid }}
          
       
     steps:
@@ -131,8 +131,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ./${{ needs.build.outputs.nupkg-sourceGrid }}
-          asset_name: ${{ needs.build.outputs.nupkg-sourceGrid }}
+          asset_path: ./${{ needs.build.outputs.nupkg-SourceGrid }}
+          asset_name: ${{ needs.build.outputs.nupkg-SourceGrid }}
           asset_content_type: application/zip
 
 
