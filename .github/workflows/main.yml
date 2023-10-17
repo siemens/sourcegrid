@@ -12,6 +12,11 @@ jobs:
     defaults:
       run:
         working-directory: .
+    outputs:
+         semver: ${{ steps.gitversion.outputs.semver }}
+         sourcegrid: ${{ steps.packageBuildResults.outputs.sourcegrid }}  
+         nupkg-sourcegrid: ${{ steps.createNupkg.outputs.nupkg-sourcegrid }}
+         
       
     steps:
     - name: Checkout
@@ -66,12 +71,12 @@ jobs:
       id: createNupkg
       run: |
         nuget pack SourceGrid.nuspec -Version 1.0.0
-        Write-Host "::set-output name=nupkg-TEST::TEST.1.0.0.nupkg"
+        Write-Host "::set-output name=nupkg-sourcegrid::TEST.1.0.0.nupkg"
         
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
       with:
-        name: nuget-TEST
+        name: sourcegrid-TEST
         path: |
           *.nupkg
 
@@ -118,6 +123,7 @@ jobs:
           asset_path: ./${{ needs.build.outputs.sourcegrid }}
           asset_name: ${{ needs.build.outputs.sourcegrid }}
           asset_content_type: application/zip
+        continue-on-error: true
           
       - name: Upload Nupkg
         uses: actions/upload-release-asset@v1
@@ -126,7 +132,8 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: ./${{ needs.build.outputs.nupkg-sourcegrid }}
-          asset_name: ${{ needs.build.outputs.nupkg-nuget-TEST }}
+          asset_name: ${{ needs.build.outputs.nupkg-sourcegrid-TEST }}
           asset_content_type: application/zip
+        continue-on-error: true
 
 
