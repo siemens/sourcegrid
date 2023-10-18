@@ -45,7 +45,18 @@ jobs:
         name: Compile_Solution_log
         path: |
           *.log    
-    
+
+    - name: Kill files
+      run: |
+       $filedate = Get-Date -Format yyyyMddhhmmss
+        $zipfile = 'C:\Logs\logfiles'+ $filedate +'.zip'
+        
+        New-Item -Path "c:\" -Name "Logs" -ItemType "directory" -ErrorAction SilentlyContinue
+        
+        Robocopy "<Log Location>" "C:\CRLogs\" *.txt *.csv *.log /s
+        Get-ChildItem -Path "C:\Logs\" -Recurse | Compress-Archive -DestinationPath $zipfile -Force -ErrorAction Continue
+        Remove-Item -Path "C:\Logs\" -Exclude *.zip -Recurse -Force
+     
       
       
     - name: Create zip
