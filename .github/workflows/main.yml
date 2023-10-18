@@ -26,7 +26,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '4.8.0'
+        dotnet-version: '3.1.x'
 
     - name: Setup Version      
       uses: gittools/actions/gitversion/setup@v0.10.2
