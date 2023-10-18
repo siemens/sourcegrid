@@ -76,24 +76,24 @@ jobs:
          taskkill /im dotnet.exe /F
          taskkill /im msbuild.exe /F
 
-    - name: Sleep for 300 seconds
-      run: Start-Sleep -s 300
-      shell: powershell
-     
-
     - name: Create zip files
       id: packageBuildResults
       run: |
          $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
          $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourceGrid" 
          New-Item -ItemType Directory -Force -Path $outFolder
-         $fileName = "SourceGrid-5.0.0.zip"
+         $fileName = "sourceGrid-5.0.0.zip"
          Write-Host "Filename: '$fileName'"
          Write-Host "sourceFolder: '$sourceFolder'"
          Write-Host "Outfolder: '$outFolder'"
-         Write-Host "::set-output name=SourceGrid::$($fileName)"
+         Write-Host "::set-output name=sourceGrid::$($fileName)"
          $outPath = Join-Path $outFolder $fileName
          Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
+
+    - name: Sleep for 300 seconds
+      run: Start-Sleep -s 300
+      shell: powershell
+      
         
         
     - name: Archive Build Output
