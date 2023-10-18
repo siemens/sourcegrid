@@ -7,7 +7,7 @@ on:
 jobs:
 
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     defaults:
       run:
@@ -23,6 +23,10 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0  
+
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '4.8.0'
 
     - name: Setup Version      
       uses: gittools/actions/gitversion/setup@v0.10.2
