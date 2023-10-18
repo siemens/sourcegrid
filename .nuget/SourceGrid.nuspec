@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>SourceGrid</id>
+    <version>5.0.0</version>
+    <title>SourceGrid</title>
+    <authors>Siemens AG</authors>
+    <owners>SourceGrid contributors</owners>
+	<projectUrl>https://github.com/siemens/sourcegrid</projectUrl>
+	<license type="expression">MIT</license>
+	<repository type="git" url="https://github.com/siemens/sourcegrid" />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+	SourceGrid is a free open source grid control. Supports virtual grid, custom cells and editors, advanced formatting options and many others features.
+	SourceGrid is a Windows Forms control written entirely in C#.
+	Goal is to create a simple but flexible grid to use in all of the cases in which it is necessary to visualize or to change a series of data in a table format.
+	There are a lot of controls of this type available, but often are expensive, difficult to be customize or not compatible with .NET. 
+	SourceGrid allows users to have customizable datasource which is not in DataSet format.
+    </description>
+	<copyright>Copyright 2023</copyright>
+	<tags>Open source grid control tool SOURCEGRID GRID </tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8" >
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Out\net48\Release\SourceGrid.dll" target="lib\net48"/>
+  </files></package>
