@@ -72,14 +72,15 @@ jobs:
       id: packageBuildResults
       run: |
         $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
-        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid" 
+        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "SourceGrid" 
         New-Item -ItemType Directory -Force -Path $outFolder
-        $fileName = "sourcegrid-5.0.0.zip"
+        $fileName = "SourceGrid-5.0.0.zip"
         Write-Host "Filename: '$fileName'"
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
-        Write-Host "::set-output name=sourcegrid::$($fileName)"
+        Write-Host "::set-output name=SourceGrid::$($fileName)"
         $outPath = Join-Path $outFolder $fileName
+        Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
         Get-ChildItem -Recurse -Path $sourcePath | Compress-Archive -DestinationPath $destinationPath
         
         
