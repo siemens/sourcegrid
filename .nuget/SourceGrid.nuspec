@@ -17,16 +17,13 @@
 	There are a lot of controls of this type available, but often are expensive, difficult to be customize or not compatible with .NET. 
 	SourceGrid allows users to have customizable datasource which is not in DataSet format.
     </description>
-    <summary></summary>
-    <language></language>
-	<releaseNotes></releaseNotes>
 	<copyright>Copyright 2023</copyright>
-	<tags>SourceGrid is a free open source grid control which Supports virtual grid, custom cells and editors, advanced formatting options and many others features.</tags>
+	<tags>Open source grid control tool SOURCEGRID GRID </tags>
     <dependencies>
       <group targetFramework=".NETFramework4.8" >
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Out\Win32\msvs2019_NET48\Release\SourceGrid.dll" target="lib\net48"/>
+    <file src="..\Out\net48\Release\SourceGrid.dll" target="lib\net48"/>
   </files></package>

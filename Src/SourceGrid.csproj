@@ -68,16 +68,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutputPath>..\Out\Win32\msvs2019_NET48\Debug\</OutputPath>
-    <DocumentationFile>..\Out\Win32\msvs2019_NET48\Debug\SourceGrid.XML</DocumentationFile>
+    <OutputPath>..\Out\net48\Debug\</OutputPath>
+    <DocumentationFile>..\Out\net48\Debug\SourceGrid.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <OutputPath>..\Out\Win32\msvs2019_NET48\Release\</OutputPath>
-    <DocumentationFile>..\Out\Win32\msvs2019_NET48\Release\SourceGrid.XML</DocumentationFile>
+    <OutputPath>..\Out\net48\Release\</OutputPath>
+    <DocumentationFile>..\Out\net48\SourceGrid.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Prefer32Bit>false</Prefer32Bit>
