@@ -74,7 +74,7 @@ jobs:
         $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
         $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid" 
         New-Item -ItemType Directory -Force -Path $outFolder
-        $fileName = "sourcegrid-1.0.1.zip"
+        $fileName = "sourcegrid-5.0.0.zip"
         Write-Host "Filename: '$fileName'"
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
@@ -93,8 +93,8 @@ jobs:
     - name: Create Nuget Packages 
       id: createNupkg
       run: |
-        nuget pack SourceGrid.nuspec -Version 1.0.1
-        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.1.0.1.nupkg"
+        nuget pack SourceGrid.nuspec -Version 5.0.0
+        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.5.0.0.nupkg"
         
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
@@ -129,9 +129,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: v1.0.1
+          tag_name: v5.0.0
           #tag_name: ${{ needs.build.outputs.semver }}
-          release_name: Release v1.0.1
+          release_name: Release v5.0.0
           body: |
             ${{ github.event.head_commit.message }}
           draft: true
