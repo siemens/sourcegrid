@@ -14,8 +14,8 @@ jobs:
         working-directory: .
     outputs:
          semver: ${{ steps.gitversion.outputs.semver }}
-         sourcegrid: ${{ steps.packageBuildResults.outputs.sourcegrid }}  
-         nupkg-sourceGrid: ${{ steps.createNupkg.outputs.nupkg-sourcegrid }}
+         sourcegrid: ${{ steps.packageBuildResults.outputs.Sourcegrid }}  
+         nupkg-sourceGrid: ${{ steps.createNupkg.outputs.nupkg-Sourcegrid }}
          
       
     steps:
@@ -71,21 +71,20 @@ jobs:
         name: Compile_Solution_log
         path: |
           *.log    
-    
-    - name: Create zip
+
+    - name: Create zip files
       id: packageBuildResults
       run: |
-        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
-        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourceGrid" 
-        New-Item -ItemType Directory -Force -Path $outFolder
-        $fileName = "sourceGrid-5.0.0.zip"
-        Write-Host "Filename: '$fileName'"
-        Write-Host "sourceFolder: '$sourceFolder'"
-        Write-Host "Outfolder: '$outFolder'"
-        Write-Host "::set-output name=sourceGrid::$($fileName)"
-        $outPath = Join-Path $outFolder $fileName
-        Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
-        Get-ChildItem -Recurse -Path $sourcePath | Compress-Archive -DestinationPath $destinationPath
+         $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
+         $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourceGrid" 
+         New-Item -ItemType Directory -Force -Path $outFolder
+         $fileName = "SourceGrid-5.0.0.zip"
+         Write-Host "Filename: '$fileName'"
+         Write-Host "sourceFolder: '$sourceFolder'"
+         Write-Host "Outfolder: '$outFolder'"
+         Write-Host "::set-output name=SourceGrid::$($fileName)"
+         $outPath = Join-Path $outFolder $fileName
+         Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
         
         
     - name: Archive Build Output
