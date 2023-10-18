@@ -71,10 +71,15 @@ jobs:
         name: Compile_Solution_log
         path: |
           *.log    
+    - name: Taskkill
+      run: |
+         taskkill /im dotnet.exe /F
+         taskkill /im msbuild.exe /F
 
     - name: Sleep for 300 seconds
       run: Start-Sleep -s 300
       shell: powershell
+     
 
     - name: Create zip files
       id: packageBuildResults
