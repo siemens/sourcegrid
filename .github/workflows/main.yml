@@ -7,7 +7,7 @@ on:
 jobs:
 
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     defaults:
       run:
@@ -23,6 +23,10 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0  
+
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '3.1.x'
 
 
     - name: Setup msbuild
@@ -45,25 +49,14 @@ jobs:
         name: Compile_Solution_log
         path: |
           *.log    
-
-    - name: Kill files
-      run: |
-       $filedate = Get-Date -Format yyyyMddhhmmss
-        $zipfile = 'C:\Logs\logfiles'+ $filedate +'.zip'
-        
-        New-Item -Path "c:\" -Name "Logs" -ItemType "directory" -ErrorAction SilentlyContinue
-        
-        Robocopy "<Log Location>" "C:\CRLogs\" *.txt *.csv *.log /s
-        Get-ChildItem -Path "C:\Logs\" -Recurse | Compress-Archive -DestinationPath $zipfile -Force -ErrorAction Continue
-        Remove-Item -Path "C:\Logs\" -Exclude *.zip -Recurse -Force
-     
+    
       
       
     - name: Create zip
       id: packageBuildResults
       run: |
-        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
-        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid" 
+        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" |
+        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" |
         New-Item -ItemType Directory -Force -Path $outFolder
         $fileName = "sourcegrid-5.0.1.zip"
         Write-Host "Filename: '$fileName'"
@@ -91,8 +84,8 @@ jobs:
     - name: Create Nuget Packages 
       id: createNupkg
       run: |
-        nuget pack SourceGrid.nuspec -Version 5.0.0
-        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.5.0.0.nupkg"
+        nuget pack SourceGrid.nuspec -Version 5.0.1
+        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.5.0.1.nupkg"
         
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
@@ -127,9 +120,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: v5.0.0
+          tag_name: v5.0.1
           #tag_name: ${{ needs.build.outputs.semver }}
-          release_name: Release v5.0.0
+          release_name: Release v5.0.1
           body: |
             ${{ github.event.head_commit.message }}
           draft: true
