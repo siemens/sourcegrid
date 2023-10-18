@@ -7,7 +7,7 @@ on:
 jobs:
 
   build:
-    runs-on: windows-2019
+    runs-on: windows-latest
 
     defaults:
       run:
@@ -71,18 +71,16 @@ jobs:
         name: Compile_Solution_log
         path: |
           *.log    
-    - name: Taskkill
-      run: |
-         taskkill /im dotnet.exe /F
-         taskkill /im msbuild.exe /F
-
+    
+      
+      
     - name: Create zip
       id: packageBuildResults
       run: |
         $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*"
         $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid" 
         New-Item -ItemType Directory -Force -Path $outFolder
-        $fileName = "sourcegrid-5.0.1.zip"
+        $fileName = "sourcegrid-5.3.6.zip"
         Write-Host "Filename: '$fileName'"
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
