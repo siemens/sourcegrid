@@ -78,10 +78,11 @@ jobs:
         Write-Host "Filename: '$fileName'"
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
+        Get-ChildItem -Recurse -Path $sourcePath | Compress-Archive -DestinationPath $destinationPath
         Write-Host "::set-output name=sourcegrid::$($fileName)"
         $outPath = Join-Path $outFolder $fileName
         Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
-        Get-ChildItem -Recurse -Path $sourcePath | Compress-Archive -DestinationPath $destinationPath
+        
         
     - name: Archive Build Output
       uses: actions/upload-artifact@v2
