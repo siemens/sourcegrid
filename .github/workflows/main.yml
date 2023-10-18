@@ -54,10 +54,10 @@ jobs:
      
       
     - name: Restore Packages
-      run: Nuget restore SourceGrid_2013.sln
+      run: Nuget restore SourceGrid.sln
 
     - name: Build
-      run: msbuild -m -t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /fl SourceGrid_2013.sln
+      run: msbuild -m -t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /fl SourceGrid.sln
         
     
     - name: Archive Build Log
