@@ -51,8 +51,8 @@ jobs:
     - name: Create zip
       id: packageBuildResults
       run: |
-        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" |
-        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" |
+        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*" 
+        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid"
         New-Item -ItemType Directory -Force -Path $outFolder
         $fileName = "sourcegrid-5.0.1.zip"
         Write-Host "Filename: '$fileName'"
@@ -61,13 +61,7 @@ jobs:
         Write-Host "::set-output name=sourcegrid::$($fileName)"
         $outPath = Join-Path $outFolder $fileName
         Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
-     
-
-    - name: Sleep for 300 seconds
-      run: Start-Sleep -s 300
-      shell: powershell
       
-        
         
     - name: Archive Build Output
       uses: actions/upload-artifact@v2
