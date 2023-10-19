@@ -24,6 +24,33 @@ jobs:
       with:
         fetch-depth: 0  
 
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '3.1.x'
+
+    - name: Setup Version      
+      uses: gittools/actions/gitversion/setup@v0.10.2
+      with:
+        versionSpec: '5.3.6'
+      env: 
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: TRUE
+    
+    - name: Determine Version      
+      uses: gittools/actions/gitversion/execute@v0.10.2
+      with:
+        useConfigFile: true        
+      env: 
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: TRUE
+
+    - name: get SemVer       
+      id: gitversion
+      run: |
+        echo "SemVer: v$($env:GitVersion_SemVer)" 
+        Write-Host "::set-output name=semver::v$($env:GitVersion_SemVer)"                
+        $fileName = "dummy-v$($env:GitVersion_SemVer)"
+        echo "SemVerMMP: v$($env:GitVersion_MajorMinorPatch)"
+        Write-Host "Filename: '$fileName'" 
+
 
     - name: Setup msbuild
       uses: microsoft/setup-msbuild@v1.1
