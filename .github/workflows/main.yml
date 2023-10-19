@@ -51,7 +51,7 @@ jobs:
     - name: Create zip
       id: packageBuildResults
       run: |
-        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "*" 
+        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "net*" 
         $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid"
         New-Item -ItemType Directory -Force -Path $outFolder
         $fileName = "sourcegrid-5.0.1.zip"
