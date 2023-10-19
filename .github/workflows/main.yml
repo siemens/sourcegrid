@@ -59,6 +59,7 @@ jobs:
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
         Write-Host "::set-output name=sourcegrid::$($fileName)"
+        Remove-Item $sourceFolder\**\*.pdb -Force -Recurse
         $outPath = Join-Path $outFolder $fileName
         Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
       
