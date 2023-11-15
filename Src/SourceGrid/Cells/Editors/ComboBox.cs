@@ -148,7 +148,7 @@ namespace SourceGrid.Cells.Editors
             //sandhra.prakash@siemens.com: Check to validate control
             if (Control != null && Control.ComboBox.DropDownStyle == ComboBoxStyle.DropDown)
             {
-                Control.Text = key.ToString();
+                Control.ComboBox.Text = key.ToString();
                 if (Control.ComboBox.Text != null)
                     Control.ComboBox.SelectionStart = Control.ComboBox.Text.Length;
             }
