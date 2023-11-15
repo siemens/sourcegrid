@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
-    <id>Siemens.SourceGrid</id>
+    <id>siemens.sourcegrid</id>
     <version>2.0.0</version>
     <title>SourceGrid</title>
     <authors>Siemens AG</authors>
