@@ -1,5 +1,17 @@
 # SourceGrid
 
+## [2.0.0] - 2023-11-16
+
+### Major Changes
+
+- Migrate to .net framework 4.8 related to #9
+- Support for Visual Studio 2022
+
+### Fixed
+
+- Fixed bug in combobox related to #7
+
+
 ## [1.0.0] - 2019-04-30
 
 ### Major Changes
@@ -16,14 +28,3 @@
 ### Fixed
 
 - Fixed bugs in clipboard, spanning etc.
-
-## [2.0.0] - 2023-11-16
-
-### Major Changes
-
-- Migrate to .net framework 4.8 related to #9
-- Support for Visual Studio 2022
-
-### Fixed
-
-- Fixed bug in combobox related to #7
