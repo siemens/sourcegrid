@@ -1,6 +1,20 @@
 # SourceGrid
 
-## Major Changes
+## [2.0.0] - 2023-11-16
+
+### Major Changes
+
+- Migrate to .net framework 4.8 related to #9
+- Support for Visual Studio 2022
+
+### Fixed
+
+- Fixed bug in combobox related to #7
+
+
+## [1.0.0] - 2019-04-30
+
+### Major Changes
 
 - Enhancement: Smooth horizontal and vertical scrolling
 - Enhanced Freeze panes(FixedRow and FixedColumn) and made it independent of Header row\column count
@@ -10,4 +24,7 @@
 - Performance improvement while loading grid- CreateControl
 - Selectable readonly cells
 - Introduced a disabled cell mode
+
+### Fixed
+
 - Fixed bugs in clipboard, spanning etc.
