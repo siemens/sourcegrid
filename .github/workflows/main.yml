@@ -81,7 +81,7 @@ jobs:
         $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "net*" 
         $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid"
         New-Item -ItemType Directory -Force -Path $outFolder
-        $fileName = "sourcegrid-$(SemVerMMP).zip"
+        $fileName = "sourcegrid-$(SemVer).zip"
         Write-Host "Filename: '$fileName'"
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
