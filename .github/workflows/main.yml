@@ -81,7 +81,7 @@ jobs:
         $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "net*" 
         $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid"
         New-Item -ItemType Directory -Force -Path $outFolder
-        $fileName = "sourcegrid- $($env:GitVersion_MajorMinor).zip"
+        $fileName = "sourcegrid-($env:GitVersion_MajorMinor).zip"
         Write-Host "Filename: '$fileName'"
         Write-Host "sourceFolder: '$sourceFolder'"
         Write-Host "Outfolder: '$outFolder'"
@@ -102,8 +102,8 @@ jobs:
     - name: Create Nuget Packages 
       id: createNupkg
       run: |
-        nuget pack .nuget\SourceGrid.nuspec -Version $($env:GitVersion_MajorMinor)
-        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.$($env:GitVersion_MajorMinor).nupkg"
+        nuget pack .nuget\SourceGrid.nuspec -Version ($env:GitVersion_MajorMinor)
+        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.($env:GitVersion_MajorMinor).nupkg"
         
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
