@@ -103,7 +103,7 @@ jobs:
       id: createNupkg
       run: |
         nuget pack .nuget\SourceGrid.nuspec -Version 
-        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.$($env:GitVersion_MajorMinor)".nupkg"
+        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.$($env:GitVersion_MajorMinor).nupkg"
         
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
@@ -138,9 +138,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: v2.0.0
+          tag_name: v$($env:GitVersion_MajorMinor)
           #tag_name: ${{ needs.build.outputs.semver }}
-          release_name: Release v2.0.0
+          release_name: Release v$($env:GitVersion_MajorMinor)
           body: |
             ${{ github.event.head_commit.message }}
           draft: true
