@@ -1,4 +1,5 @@
 mode: Mainline
 next-version: 2.0.0
 branches:
-   master:
+     master:
+      regex: ^master$|^main$
