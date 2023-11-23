@@ -112,7 +112,7 @@ jobs:
           *.nupkg
 
   release:
-    if: github.ref == 'refs/heads/Github_runner'    
+    if: github.ref == 'refs/heads/master'    
     runs-on: windows-latest
     needs: build
   
