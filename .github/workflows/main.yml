@@ -1,0 +1,170 @@
+name: Build on Github servers
+
+on: 
+ push:
+ pull_request:
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        working-directory: .
+    outputs:
+         semver: ${{ steps.gitversion.outputs.semver }}
+         sourcegrid: ${{ steps.packageBuildResults.outputs.sourcegrid }}  
+         nupkg-sourceGrid: ${{ steps.createNupkg.outputs.nupkg-sourcegrid }}
+         
+      
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  
+
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '3.1.x'
+
+    - name: Setup Version      
+      uses: gittools/actions/gitversion/setup@v0.10.2
+      with:
+        versionSpec: '5.3.6'
+      env: 
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: TRUE
+    
+    - name: Determine Version      
+      uses: gittools/actions/gitversion/execute@v0.10.2
+      with:
+        useConfigFile: true        
+      env: 
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: TRUE
+
+    - name: get SemVer       
+      id: gitversion
+      run: |
+        echo "SemVer: v$($env:GitVersion_SemVer)" 
+        Write-Host "::set-output name=semver::v$($env:GitVersion_SemVer)"                
+        $fileName = "dummy-v$($env:GitVersion_SemVer)"
+        echo "SemVerMMP: v$($env:GitVersion_MajorMinorPatch)"
+        Write-Host "Filename: '$fileName'" 
+
+
+    - name: Setup msbuild
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+          vs-version: '12.0'
+     
+      
+    - name: Restore Packages
+      run: Nuget restore SourceGrid.sln
+
+    - name: Build
+      run: msbuild -m -t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /fl SourceGrid.sln
+        
+    
+    - name: Archive Build Log
+      uses: actions/upload-artifact@v2
+      if: ${{ success() || failure() }}
+      with:
+        name: Compile_Solution_log
+        path: |
+          *.log    
+    
+      
+      
+    - name: Create zip
+      id: packageBuildResults
+      run: |
+        $sourceFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "net*" 
+        $outFolder = Join-Path $env:GITHUB_WORKSPACE "out" | Join-Path -ChildPath "sourcegrid"
+        New-Item -ItemType Directory -Force -Path $outFolder
+        $fileName = "sourcegrid-v$($env:GitVersion_MajorMinorPatch).zip"
+        Write-Host "Filename: '$fileName'"
+        Write-Host "sourceFolder: '$sourceFolder'"
+        Write-Host "Outfolder: '$outFolder'"
+        Write-Host "::set-output name=sourcegrid::$($fileName)"
+        $outPath = Join-Path $outFolder $fileName
+        Compress-Archive -DestinationPath $outPath -Path $sourceFolder -CompressionLevel Optimal
+      
+        
+    - name: Archive Build Output
+      uses: actions/upload-artifact@v2
+      with:
+         name: sourcegrid
+         path: |
+            out/sourcegrid
+
+
+    - name: Create Nuget Packages 
+      id: createNupkg
+      run: |
+        nuget pack .nuget\SourceGrid.nuspec -Version $($env:GitVersion_MajorMinorPatch)
+        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.v$($env:GitVersion_MajorMinorPatch).nupkg"
+        
+    - name: Archive NuGet Packages
+      uses: actions/upload-artifact@v2
+      with:
+        name: nuget-sourceGrid
+        path: |
+          *.nupkg
+
+  release:
+    if: github.ref == 'refs/heads/Github_runner'    
+    runs-on: windows-latest
+    needs: build
+  
+    steps:
+      - name: Download Build Output
+        uses: actions/download-artifact@v2
+        with:
+          name: sourcegrid
+
+      - name: Download NuGet Package
+        uses: actions/download-artifact@v2
+        with:
+          name: nuget-sourceGrid
+
+      - name: Debug
+        run: |
+          tree
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: v$($env:GitVersion_MajorMinorPatch)
+          #tag_name: ${{ needs.build.outputs.semver }}
+          release_name: Release v$($env:GitVersion_MajorMinorPatch)
+          body: |
+            ${{ github.event.head_commit.message }}
+          draft: true
+          prerelease: false   
+          
+      - name: Upload Zip
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ./${{ needs.build.outputs.sourcegrid }}
+          asset_name: ${{ needs.build.outputs.sourcegrid }}
+          asset_content_type: application/zip
+    
+          
+      - name: Upload Nupkg
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ./${{ needs.build.outputs.nupkg-sourceGrid }}
+          asset_name: ${{ needs.build.outputs.nupkg-sourceGrid }}
+          asset_content_type: application/zip
+
+
+
