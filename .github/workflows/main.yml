@@ -46,7 +46,7 @@ jobs:
       id: gitversion
       run: |
         echo "SemVer: v$($env:GitVersion_SemVer)" 
-        Write-Host "::set-output name=semver::v$($env:GitVersion_MajorMinorPatch)"                
+        Write-Host "::set-output name=semver::$($env:GitVersion_MajorMinorPatch)"                
         $fileName = "dummy-v$($env:GitVersion_SemVer)"
         echo "SemVerMMP: v$($env:GitVersion_MajorMinorPatch)"
         Write-Host "Filename: '$fileName'" 
