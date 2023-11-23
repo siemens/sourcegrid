@@ -102,7 +102,7 @@ jobs:
       id: createNupkg
       run: |
         nuget pack .nuget\SourceGrid.nuspec -Version $($env:GitVersion_MajorMinorPatch)
-        Write-Host "::set-output name=nupkg-sourcegrid::sourcegrid.v$($env:GitVersion_MajorMinorPatch).nupkg"
+        Write-Host "::set-output name=nupkg-sourcegrid::siemens.sourcegrid.v$($env:GitVersion_MajorMinorPatch).nupkg"
         
     - name: Archive NuGet Packages
       uses: actions/upload-artifact@v2
