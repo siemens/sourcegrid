@@ -46,7 +46,7 @@ jobs:
       id: gitversion
       run: |
         echo "SemVer: v$($env:GitVersion_SemVer)" 
-        Write-Host "::set-output name=semver::v$($env:GitVersion_SemVer)"                
+        Write-Host "::set-output name=semver::v$($env:GitVersion_MajorMinorPatch)"                
         $fileName = "dummy-v$($env:GitVersion_SemVer)"
         echo "SemVerMMP: v$($env:GitVersion_MajorMinorPatch)"
         Write-Host "Filename: '$fileName'" 
@@ -137,9 +137,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: v$($env:GitVersion_MajorMinorPatch)
-          #tag_name: ${{ needs.build.outputs.semver }}
-          release_name: Release v$($env:GitVersion_MajorMinorPatch)
+          #tag_name: v$($env:GitVersion_MajorMinorPatch)
+          tag_name: ${{ needs.build.outputs.semver }}
+          release_name: Release v${{ needs.build.outputs.semver }}
           body: |
             ${{ github.event.head_commit.message }}
           draft: true
