@@ -224,7 +224,6 @@ namespace DevAge.Windows.Forms
 			}
 		}
 
-		// TODO ContextMenu is no longer supported. Use ContextMenuStrip instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
 		private ContextMenuStrip l_ContextMenu = new ContextMenuStrip();
 
 		private void btArrow_Click(object sender, System.EventArgs e)
