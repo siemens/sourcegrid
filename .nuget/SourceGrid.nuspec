@@ -17,13 +17,13 @@
 	There are a lot of controls of this type available, but often are expensive, difficult to be customize or not compatible with .NET. 
 	SourceGrid allows users to have customizable datasource which is not in DataSet format.
     </description>
-	<copyright>Copyright 2023</copyright>
+	<copyright>Copyright 2024</copyright>
 	<tags>Open source grid control tool SOURCEGRID GRID </tags>
     <dependencies>
-      <group targetFramework=".NETFramework4.8" >
+      <group targetFramework="net8.0" >
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Out\net48\Release\SourceGrid.dll" target="lib\net48"/>
+    <file src="..\Out\net8\Release\net8.0-windows\SourceGrid.dll" target="lib\net8.0"/>
   </files></package>

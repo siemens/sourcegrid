@@ -124,7 +124,7 @@ namespace DevAge.Windows.Forms
                 {
                     m_ReadOnlyTextBox.ReadOnly = true;
                     m_ReadOnlyTextBox.Visible = true;
-                    m_ReadOnlyTextBox.ContextMenu = m_ComboBox.ContextMenu;
+                    m_ReadOnlyTextBox.ContextMenuStrip = m_ComboBox.ContextMenuStrip;
                     m_ComboBox.SendToBack();
                     m_ComboBox.Enabled = false;
                 }
