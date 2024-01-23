@@ -7,8 +7,14 @@ See License.txt.
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
+[assembly: AssemblyCompany("Davide Icardi, Darius Damalakas, http://sourcegrid.codeplex.com, http://bitbucket.org/dariusdamalakas/sourcegrid")]
+[assembly: AssemblyCopyright("Davide Icardi, Darius Damalakas")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
+
+//Changed when no more compatible with the previous version
+[assembly: AssemblyVersion("3.0.0")]
 
 [assembly: CLSCompliant(true)]
 
