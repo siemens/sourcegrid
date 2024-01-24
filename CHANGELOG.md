@@ -1,5 +1,12 @@
 # SourceGrid
 
+## [3.0.0] - 2024-01-18
+
+### Major Changes
+
+- Migrate to .net 8.0 related to #3
+- Deprecated DevAge Serialization 
+
 ## [2.0.0] - 2023-11-24
 
 ### Major Changes
