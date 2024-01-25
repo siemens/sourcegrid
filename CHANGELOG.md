@@ -1,11 +1,15 @@
 # SourceGrid
 
-## [3.0.0] - 2024-01-18
+## [3.0.0] - 2024-01-29
 
 ### Major Changes
 
 - Migrate to .net 8.0 related to #3
 - Deprecated DevAge Serialization 
+
+### Fixed
+
+- Fixed bug in validator base related to #25
 
 ## [2.0.0] - 2023-11-24
 

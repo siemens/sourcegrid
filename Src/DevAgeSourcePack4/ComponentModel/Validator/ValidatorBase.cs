@@ -498,6 +498,11 @@ namespace DevAge.ComponentModel.Validator
                 if (m_MinimumValue != value)
                 {
                     m_MinimumValue = value;
+
+                    if (m_MinimumValue.GetType() != ValueType)
+                    {
+                        throw new ValidationErrorException(ValueTypeName, ObjectToStringForError(m_MinimumValue));
+                    }
                     OnChanged(EventArgs.Empty);
                 }
             }
@@ -515,6 +520,11 @@ namespace DevAge.ComponentModel.Validator
                 if (m_MaximumValue != value)
                 {
                     m_MaximumValue = value;
+
+                    if (m_MaximumValue.GetType() != ValueType)
+                    {
+                        throw new ValidationErrorException(ValueTypeName, ObjectToStringForError(m_MaximumValue));
+                    }
                     OnChanged(EventArgs.Empty);
                 }
             }

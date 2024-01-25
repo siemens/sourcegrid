@@ -127,10 +127,27 @@ namespace DevAge
 		}
 	}
 
-	/// <summary>
-	/// Common EventArgs class used to store and raise events with an Exception associated
-	/// </summary>
-	public class ExceptionEventArgs : EventArgs
+    /// <summary>
+    /// Validation exception
+    /// </summary>
+    [Serializable]
+    public class ValidationErrorException : DevAgeApplicationException
+    {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="value"></param>
+		public ValidationErrorException(string type, string value) :
+            base(value + " is not of type " + type + ".")
+        {
+        }
+    }
+
+    /// <summary>
+    /// Common EventArgs class used to store and raise events with an Exception associated
+    /// </summary>
+    public class ExceptionEventArgs : EventArgs
 	{
         /// <summary>
         /// Constructor
