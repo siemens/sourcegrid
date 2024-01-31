@@ -1,4 +1,4 @@
-name: Build on Github servers
+name: Build
 
 on: 
  push:
