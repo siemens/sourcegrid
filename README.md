@@ -1,4 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/bi9kof78cbfrbknf?svg=true)](https://ci.appveyor.com/project/sandhraprakash/sourcegrid)
+![Build on Github servers](https://github.com/siemens/sourcegrid/workflows/Build%20on%20Github%20servers/badge.svg?branch=master)
+![Publish NuGet Packages](https://github.com/siemens/sourcegrid/workflows/Publish%20NuGet%20Packages/badge.svg)
 ## SourceGrid
 
 SourceGrid is a free open source grid control. Supports virtual grid, custom cells and editors, advanced formatting options and many others features
