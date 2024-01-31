@@ -57,6 +57,7 @@
     <OutputPath>..\Out\net8\Release\</OutputPath>
     <DocumentationFile>..\Out\net8\SourceGrid.XML</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="DevAge.Windows.Forms\Windows\Forms\ButtonMultiSelection.cs">
