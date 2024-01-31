@@ -1,4 +1,4 @@
-![Build on Github servers](https://github.com/siemens/sourcegrid/workflows/Build%20on%20Github%20servers/badge.svg?branch=master)
+![Build](https://github.com/siemens/sourcegrid/workflows/Build/badge.svg)
 ![Publish NuGet Packages](https://github.com/siemens/sourcegrid/workflows/Publish%20NuGet%20Packages/badge.svg)
 ## SourceGrid
 
