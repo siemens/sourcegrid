@@ -19,6 +19,13 @@ There only a few preconditions which must be fulfilled.
 * Visual Studio 2022
 * Net 8.0
 
+# Note 
+
+* SourceGrid is released and maintained only on Github repository and is not available in nuget.org
+* SourceGrid nuget package can be used in visual studio by configuring Github as nuget source.
+* Nuget source Link for configuring in visual studio : [SourceGrid](https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fnuget.pkg.github.com%2FSiemens%2Findex.json&data=05%7C02%7Crahul.rajesh%40siemens.com%7C529a017e2d01450cf71b08dc3c597754%7C38ae3bcd95794fd4addab42e1495d55a%7C1%7C0%7C638451602179875886%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=YvpNUOj1pKlJpoT5QBollCpgcXNW0b%2BsN13Ep5zQe48%3D&reserved=0)
+
+
 # Changes:
 1. Enhancement: Smooth horizontal and vertical scrolling
 2. Enhanced Freeze panes(FixedRow and FixedColumn) and made it independent of Header row\column count
