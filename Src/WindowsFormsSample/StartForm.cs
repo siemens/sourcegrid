@@ -11,11 +11,16 @@ namespace WindowsFormsSample
 	/// </summary>
 	public class StartForm : System.Windows.Forms.Form
 	{
-		private System.Windows.Forms.MainMenu mainMenu1;
-		private System.Windows.Forms.MenuItem mnFile;
-		private System.Windows.Forms.MenuItem mnExit;
-		private System.Windows.Forms.MenuItem mnHelp;
-		private System.Windows.Forms.MenuItem mnAbout;
+		// TODO MainMenu is no longer supported. Use MenuStrip instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+		private System.Windows.Forms.MenuStrip mainMenu1;
+		// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+		private System.Windows.Forms.ToolStripMenuItem mnFile;
+		// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+		private System.Windows.Forms.ToolStripMenuItem mnExit;
+		// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+		private System.Windows.Forms.ToolStripMenuItem mnHelp;
+		// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+		private System.Windows.Forms.ToolStripMenuItem mnAbout;
 		private SourceGrid.Grid grid1;
 		/// <summary>
 		/// Required designer variable.
@@ -52,43 +57,51 @@ namespace WindowsFormsSample
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.mainMenu1 = new System.Windows.Forms.MainMenu();
-			this.mnFile = new System.Windows.Forms.MenuItem();
-			this.mnExit = new System.Windows.Forms.MenuItem();
-			this.mnHelp = new System.Windows.Forms.MenuItem();
-			this.mnAbout = new System.Windows.Forms.MenuItem();
+			// TODO MainMenu is no longer supported. Use MenuStrip instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+			this.mainMenu1 = new System.Windows.Forms.MenuStrip();
+			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+			this.mnFile = new System.Windows.Forms.ToolStripMenuItem();
+			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+			this.mnExit = new System.Windows.Forms.ToolStripMenuItem();
+			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+			this.mnHelp = new System.Windows.Forms.ToolStripMenuItem();
+			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+			this.mnAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.grid1 = new SourceGrid.Grid();
 			this.SuspendLayout();
 			// 
 			// mainMenu1
 			// 
-			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+												this.mainMenu1.Items.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
 																					  this.mnFile,
 																					  this.mnHelp});
 			// 
 			// mnFile
 			// 
-			this.mnFile.Index = 0;
-			this.mnFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			// this.mnFile.Index = 0;
+			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+			this.mnFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
 																				   this.mnExit});
 			this.mnFile.Text = "File";
 			// 
 			// mnExit
 			// 
-			this.mnExit.Index = 0;
+			// this.mnExit.Index = 0;
 			this.mnExit.Text = "Exit";
 			this.mnExit.Click += new System.EventHandler(this.mnExit_Click);
 			// 
 			// mnHelp
 			// 
-			this.mnHelp.Index = 1;
-			this.mnHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			// this.mnHelp.Index = 1;
+			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+			this.mnHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
 																				   this.mnAbout});
 			this.mnHelp.Text = "Help";
 			// 
 			// mnAbout
 			// 
-			this.mnAbout.Index = 0;
+			// this.mnAbout.Index = 0;
 			this.mnAbout.Text = "About";
 			// 
 			// grid1
@@ -113,7 +126,7 @@ namespace WindowsFormsSample
 			this.BackColor = System.Drawing.SystemColors.Window;
 			this.ClientSize = new System.Drawing.Size(624, 305);
 			this.Controls.Add(this.grid1);
-			this.Menu = this.mainMenu1;
+			this.MainMenuStrip = this.mainMenu1;
 			this.Name = "StartForm";
 			this.Text = "Examples Explorer";
 			this.ResumeLayout(false);

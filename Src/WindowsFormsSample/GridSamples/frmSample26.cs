@@ -166,11 +166,12 @@ namespace WindowsFormsSample
 
 	public class PopupMenu : SourceGrid.Cells.Controllers.ControllerBase
 	{
-		ContextMenu menu = new ContextMenu();
+        // TODO ContextMenu is no longer supported. Use ContextMenuStrip instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
+        ContextMenuStrip menu = new ContextMenuStrip();
 		public PopupMenu()
 		{
-            menu.MenuItems.Add("Menu 1", new EventHandler(Menu1_Click));
-			menu.MenuItems.Add("Menu 2", new EventHandler(Menu2_Click));
+            menu.Items.Add("Menu 1", null, new EventHandler(Menu1_Click));
+			menu.Items.Add("Menu 2", null, new EventHandler(Menu2_Click));
 		}
 
 		public override void OnMouseUp(SourceGrid.CellContext sender, MouseEventArgs e)
