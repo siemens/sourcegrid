@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceGrid", "..\SourceGrid.csproj", "{2A5A1657-DBA8-4117-8E2A-9F1236ACE9E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsSample-WithoutExtensions", "WindowsFormsSample-WithoutExtensions.csproj", "{524BB84A-1662-47A6-9BE0-506638657C3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsFormsSample-WithoutExtensions", "WindowsFormsSample-WithoutExtensions.csproj", "{524BB84A-1662-47A6-9BE0-506638657C3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
