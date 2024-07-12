@@ -33,6 +33,7 @@
     <AssemblyVersion>4.40.%2a</AssemblyVersion>
     <AssemblyTitle>SourceGrid</AssemblyTitle>
     <Description>Open Source C# Grid Control</Description>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
