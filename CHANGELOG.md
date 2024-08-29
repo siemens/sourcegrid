@@ -1,5 +1,12 @@
 # SourceGrid
 
+## [3.1.0] - 2024-08-30
+
+### Major Changes
+
+- Add horizontal mouse wheel scrolling related to #33
+- Migrate sample forms to .net 8.0
+
 ## [3.0.0] - 2024-01-31
 
 ### Major Changes
