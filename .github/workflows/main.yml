@@ -16,8 +16,7 @@ jobs:
          semver: ${{ steps.gitversion.outputs.semver }}
          sourcegrid: ${{ steps.packageBuildResults.outputs.sourcegrid }}  
          nupkg-sourceGrid: ${{ steps.createNupkg.outputs.nupkg-sourcegrid }}
-         
-      
+    
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -51,20 +50,17 @@ jobs:
         echo "SemVerMMP: v$($env:GitVersion_MajorMinorPatch)"
         Write-Host "Filename: '$fileName'" 
 
-
     - name: Setup msbuild
       uses: microsoft/setup-msbuild@v1.1
       with:
           vs-version: '12.0'
-     
-      
+         
     - name: Restore Packages
       run: Nuget restore SourceGrid.sln
 
     - name: Build
       run: msbuild -m -t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /fl SourceGrid.sln
-        
-    
+          
     - name: Archive Build Log
       uses: actions/upload-artifact@v3
       if: ${{ success() || failure() }}
@@ -72,9 +68,7 @@ jobs:
         name: Compile_Solution_log
         path: |
           *.log    
-    
-      
-      
+  
     - name: Create zip
       id: packageBuildResults
       run: |
@@ -95,8 +89,7 @@ jobs:
       with:
          name: sourcegrid
          path: |
-            out/sourcegrid
-
+            Out/win32
 
     - name: Create Nuget Packages 
       id: createNupkg
