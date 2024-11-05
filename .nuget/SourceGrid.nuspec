@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Siemens-SourceGrid</id>
-    <version>4.40.0-EA17</version>
+    <version>4.40.0-EA18</version>
     <title>SourceGrid</title>
     <authors>Siemens AG</authors>
     <owners>SourceGrid contributors</owners>
