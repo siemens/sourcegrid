@@ -23,7 +23,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE. */
 
 //------------------------------------------------------------------------ 
-// Copyright (C) Siemens AG 2016    
+// Copyright (C) Siemens AG 2016 All Rights Reserved. Confidential 
 //------------------------------------------------------------------------ 
 // Project           : UIGrid
 // Author            : Sandhra.Prakash@siemens.com
@@ -696,11 +696,11 @@ namespace SourceGrid
             if (HScrollBarVisible)
                 mHScrollBar.Value = Math.Max(mHScrollBar.Value - mHScrollBar.LargeChange, mHScrollBar.Minimum);
         }
-        public virtual void CustomScrollWheel(int rotationDelta, bool asVertical)
+        public virtual void CustomScrollWheel(int rotationDelta)
         {
             if (rotationDelta >= 120 || rotationDelta <= -120)
             {
-                if (asVertical && VScrollBarVisible)
+                if (VScrollBarVisible)
                 {
                     Point current = CustomScrollPosition;
                     int newY = current.Y +
@@ -713,20 +713,6 @@ namespace SourceGrid
                         newY = MaximumVScroll;
 
                     CustomScrollPosition = new Point(current.X, newY);
-                }
-                else if (!asVertical && HScrollBarVisible)
-                {
-                    Point current = CustomScrollPosition;
-                    int newX = current.X +
-                        SystemInformation.MouseWheelScrollLines * HScrollBar.SmallChange * -Math.Sign(rotationDelta);
-
-                    //check that the value is between max and min
-                    if (newX < 0)
-                        newX = 0;
-                    if (newX > MaximumHScroll)
-                        newX = MaximumHScroll;
-
-                    CustomScrollPosition = new Point(newX, current.Y);
                 }
             }
         }

@@ -23,7 +23,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE. */
 
 //------------------------------------------------------------------------ 
-// Copyright (C) Siemens AG 2016    
+// Copyright (C) Siemens AG 2016 All Rights Reserved. Confidential 
 //------------------------------------------------------------------------ 
 // Project           : UIGrid
 // Author            : Sandhra.Prakash@siemens.com, chinnari.prasad@siemens.com
@@ -2101,54 +2101,7 @@ namespace SourceGrid
         {
             base.OnMouseWheel(e);
 
-            // Check if shift key is being held down to simulate horizontal scroll
-            bool asVertical = (Control.ModifierKeys & Keys.Shift) != Keys.Shift;
-
-            CustomScrollWheel(e.Delta, asVertical);
-        }
-
-        protected virtual void OnMouseHWheel(MouseEventArgs e)
-        {
-            // Invert delta to match handling and scroll direction in Excel
-            CustomScrollWheel(-1 * e.Delta, false);
-        }
-
-        private static class NativeMethods
-        {
-            internal static int SignedHIWORD(IntPtr ptr)
-            {
-                unchecked
-                {
-                    int n = (int)(long)ptr;
-                    return (short)((n >> 16) & (int)ushort.MaxValue);
-                }
-            }
-
-            internal static int SignedLOWORD(IntPtr ptr)
-            {
-                unchecked
-                {
-                    int n = (int)(long)ptr;
-                    return (short)(n & (int)ushort.MaxValue);
-                }
-            }
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            const int WM_MOUSEHWHEEL = 0x020E;
-            if (m.Msg == WM_MOUSEHWHEEL)
-            {
-                Point p = new Point(NativeMethods.SignedLOWORD(m.LParam), NativeMethods.SignedHIWORD(m.LParam));
-                p = PointToClient(p);
-                OnMouseHWheel(new MouseEventArgs(MouseButtons.None, 0, p.X, p.Y, NativeMethods.SignedHIWORD(m.WParam)));
-
-                // Set as handled and do not call base method (same as Control.WmMouseWheel)
-                m.Result = (IntPtr)1;
-                return;
-            }
-
-            base.WndProc(ref m);
+            CustomScrollWheel(e.Delta);
         }
 
         #endregion

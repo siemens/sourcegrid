@@ -1,7 +1,7 @@
 #region Copyright
 
 //------------------------------------------------------------------------ 
-// Copyright (C) Siemens AG 2017    
+// Copyright (C) Siemens AG 2017 All Rights Reserved. Confidential 
 //------------------------------------------------------------------------ 
 // Project           : UIGrid
 // Author            : Sandhra.Prakash@siemens.com

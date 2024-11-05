@@ -23,7 +23,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE. */
 
 //------------------------------------------------------------------------ 
-// Copyright (C) Siemens AG 2016    
+// Copyright (C) Siemens AG 2016 All Rights Reserved. Confidential 
 //------------------------------------------------------------------------ 
 // Project           : UIGrid
 // Author            : Sandhra.Prakash@siemens.com
@@ -148,7 +148,7 @@ namespace SourceGrid.Cells.Editors
             //sandhra.prakash@siemens.com: Check to validate control
             if (Control != null && Control.ComboBox.DropDownStyle == ComboBoxStyle.DropDown)
             {
-                Control.ComboBox.Text = key.ToString();
+                Control.Text = key.ToString();
                 if (Control.ComboBox.Text != null)
                     Control.ComboBox.SelectionStart = Control.ComboBox.Text.Length;
             }

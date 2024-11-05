@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.21022</ProductVersion>
@@ -26,14 +25,15 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <SccProjectName>Rational ClearCase</SccProjectName>
-    <SccLocalPath>Rational ClearCase</SccLocalPath>
-    <SccAuxPath>Rational ClearCase</SccAuxPath>
-    <SccProvider>Rational ClearCase</SccProvider>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <OldToolsVersion>2.0</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -46,6 +46,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -97,6 +98,14 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevAge.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=faad465d84242dbf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DevAge.Core.dll</HintPath>
+    </Reference>
+    <!--<Reference Include="DevAge.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=faad465d84242dbf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DevAge.Windows.Forms.dll</HintPath>
+    </Reference>-->
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -112,7 +121,9 @@
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
     </Reference>
-    <Reference Include="System.XML" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
@@ -242,57 +253,75 @@
     <None Include="Resources\FACE04.ICO" />
     <EmbeddedResource Include="GridSamples\frmSample1.resx">
       <DependentUpon>frmSample1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample14.resx">
       <DependentUpon>frmSample14.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample17.resx">
       <DependentUpon>frmSample17.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample18.resx">
       <DependentUpon>frmSample18.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample19.resx">
       <DependentUpon>frmSample19.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample21.resx">
       <DependentUpon>frmSample21.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample24.resx">
       <DependentUpon>frmSample24.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample25.resx">
       <DependentUpon>frmSample25.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample26.resx">
       <DependentUpon>frmSample26.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample27.resx">
       <DependentUpon>frmSample27.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample28.resx">
       <DependentUpon>frmSample28.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample29.resx">
       <DependentUpon>frmSample29.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample3.resx">
       <DependentUpon>frmSample3.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample4.resx">
       <DependentUpon>frmSample4.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample41.resx">
       <DependentUpon>frmSample41.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample42.resx">
       <DependentUpon>frmSample42.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample43.resx">
       <DependentUpon>frmSample43.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample44.resx">
       <DependentUpon>frmSample44.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample47.resx">
       <SubType>Designer</SubType>
@@ -316,6 +345,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\frmSample9.resx">
       <DependentUpon>frmSample9.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GridSamples\SampleData.xml" />
     <EmbeddedResource Include="GridSamples\SampleData2.xml" />
@@ -333,14 +363,19 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <!--<ProjectReference Include="..\SourceGrid.Extensions\SourceGrid.Extensions.csproj">
+      <Project>{81925514-5708-4649-9538-36CAD48CF2D5}</Project>
+      <Name>SourceGrid.Extensions</Name>
+    </ProjectReference>-->
+    <ProjectReference Include="..\SourceGrid.csproj">
+      <Project>{DA47B108-21C8-4293-8D4E-56FFF1ED45A5}</Project>
+      <Name>SourceGrid</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
@@ -356,17 +391,6 @@
       <ProductName>.NET Framework 3.5</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SourceGrid.csproj">
-      <Project>{2a5a1657-dba8-4117-8e2a-9f1236ace9e2}</Project>
-      <Name>SourceGrid</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

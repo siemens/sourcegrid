@@ -14,10 +14,8 @@ namespace WindowsFormsSample.GridSamples
 	{
 		private System.Windows.Forms.Panel panelBottom;
 		private SourceGrid.Grid grid;
-		// TODO MainMenu is no longer supported. Use MenuStrip instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
-		private System.Windows.Forms.MenuStrip mainMenu1;
-		// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
-		private System.Windows.Forms.ToolStripMenuItem mnWindow;
+		private System.Windows.Forms.MainMenu mainMenu1;
+		private System.Windows.Forms.MenuItem mnWindow;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -55,10 +53,8 @@ namespace WindowsFormsSample.GridSamples
 		{
 			this.panelBottom = new System.Windows.Forms.Panel();
 			this.grid = new SourceGrid.Grid();
-			// TODO MainMenu is no longer supported. Use MenuStrip instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
-			this.mainMenu1 = new System.Windows.Forms.MenuStrip();
-			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
-			this.mnWindow = new System.Windows.Forms.ToolStripMenuItem();
+			this.mainMenu1 = new System.Windows.Forms.MainMenu();
+			this.mnWindow = new System.Windows.Forms.MenuItem();
 			this.panelBottom.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -91,13 +87,12 @@ namespace WindowsFormsSample.GridSamples
 			// 
 			// mainMenu1
 			// 
-			// TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
-												this.mainMenu1.Items.AddRange(new System.Windows.Forms.ToolStripMenuItem[] {
+			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					  this.mnWindow});
 			// 
 			// mnWindow
 			// 
-			//this.mnWindow.Index = 0;
+			this.mnWindow.Index = 0;
 			this.mnWindow.Text = "Window";
 			// 
 			// frmSample25
@@ -106,7 +101,7 @@ namespace WindowsFormsSample.GridSamples
 			this.ClientSize = new System.Drawing.Size(772, 470);
 			this.Controls.Add(this.panelBottom);
 			this.IsMdiContainer = true;
-			this.MainMenuStrip = this.mainMenu1;
+			this.Menu = this.mainMenu1;
 			this.Name = "frmSample25";
 			this.Text = "frmSample25";
 			this.Load += new System.EventHandler(this.frmSample25_Load);
@@ -162,9 +157,8 @@ namespace WindowsFormsSample.GridSamples
 
 					if (assemblyTypes[i] != this.GetType())
 					{
-                        // TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
-                        ToolStripMenuItem menu = new MenuForm(this, assemblyTypes[i], sampleAttribute.Description + " " + sampleAttribute.SampleNumber.ToString());
-						mnWindow.DropDownItems.Add(menu);
+						MenuItem menu = new MenuForm(this, assemblyTypes[i], sampleAttribute.Description + " " + sampleAttribute.SampleNumber.ToString());
+						mnWindow.MenuItems.Add(menu);
 					}
 				}
 			}
@@ -177,8 +171,7 @@ namespace WindowsFormsSample.GridSamples
         }
 
 
-        private class MenuForm : // TODO MenuItem is no longer supported. Use ToolStripMenuItem instead. For more details see https://docs.microsoft.com/en-us/dotnet/core/compatibility/winforms#removed-controls
-ToolStripMenuItem
+        private class MenuForm : MenuItem
 		{
 			private Type mFrm;
 			private Form mParent;

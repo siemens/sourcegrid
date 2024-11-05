@@ -1,7 +1,6 @@
 ﻿using SourceGrid;
 using System;
 using System.Drawing;
-using Range = SourceGrid.Range;
 
 namespace QuadTreeLib
 {

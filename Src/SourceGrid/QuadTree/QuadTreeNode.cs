@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using Range = SourceGrid.Range;
 
 namespace QuadTreeLib
 {

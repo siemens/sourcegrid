@@ -224,17 +224,17 @@ namespace DevAge.Windows.Forms
 			}
 		}
 
-		private ContextMenuStrip l_ContextMenu = new ContextMenuStrip();
+		private ContextMenu l_ContextMenu = new ContextMenu();
 
 		private void btArrow_Click(object sender, System.EventArgs e)
 		{
 			if (m_ButtonsItems!=null && m_ButtonsItems.Count>0)
 			{
-				l_ContextMenu.Items.Clear();
+				l_ContextMenu.MenuItems.Clear();
 				foreach(SubButtonItem b in m_ButtonsItems)
 				{
 					b.Owner = this;
-					l_ContextMenu.Items.Add(b.m_MenuItem);
+					l_ContextMenu.MenuItems.Add(b.m_MenuItem);
 				}
 
 				l_ContextMenu.Show(btMain,new Point(0,btMain.Height));
@@ -302,10 +302,10 @@ namespace DevAge.Windows.Forms
 		public SubButtonItem(string p_Text, EventHandler p_Event, Image p_Image)
 		{
 			if (p_Image == null)
-				m_MenuItem = new ToolStripMenuItem();
+				m_MenuItem = new MenuItem();
 			else
 			{
-				m_MenuItem = new ToolStripMenuItem();
+				m_MenuItem = new MenuItem();
                 //TODO add the image
 			}
 
@@ -315,10 +315,10 @@ namespace DevAge.Windows.Forms
 		public SubButtonItem(string p_Text, EventHandler p_Event, ImageList p_ImageList, int p_ImageIndex)
 		{
 			if (p_ImageList == null)
-				m_MenuItem = new ToolStripMenuItem();
+				m_MenuItem = new MenuItem();
 			else
 			{
-				m_MenuItem = new ToolStripMenuItem();
+				m_MenuItem = new MenuItem();
                 //TODO add the image
             }
 
@@ -334,7 +334,7 @@ namespace DevAge.Windows.Forms
 				Click += p_Event;
 		}
 
-		internal ToolStripMenuItem m_MenuItem;
+		internal MenuItem m_MenuItem;
 
 		private object m_Tag;
 		public object Tag

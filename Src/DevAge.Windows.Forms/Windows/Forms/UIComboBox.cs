@@ -1,7 +1,7 @@
 #region Copyright
 
 //------------------------------------------------------------------------ 
-// Copyright (C) Siemens AG 2017    
+// Copyright (C) Siemens AG 2017 All Rights Reserved. Confidential 
 //------------------------------------------------------------------------ 
 // Project           : UIGrid
 // Author            : Sandhra.Prakash@siemens.com
@@ -124,7 +124,7 @@ namespace DevAge.Windows.Forms
                 {
                     m_ReadOnlyTextBox.ReadOnly = true;
                     m_ReadOnlyTextBox.Visible = true;
-                    m_ReadOnlyTextBox.ContextMenuStrip = m_ComboBox.ContextMenuStrip;
+                    m_ReadOnlyTextBox.ContextMenu = m_ComboBox.ContextMenu;
                     m_ComboBox.SendToBack();
                     m_ComboBox.Enabled = false;
                 }

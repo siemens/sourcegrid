@@ -23,7 +23,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE. */
 
 //------------------------------------------------------------------------ 
-// Copyright (C) Siemens AG 2016    
+// Copyright (C) Siemens AG 2016 All Rights Reserved. Confidential 
 //------------------------------------------------------------------------ 
 // Project           : UIGrid
 // Author            : Sandhra.Prakash@siemens.com
@@ -49,6 +49,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using DevAge.ComponentModel;
+using ClassA = DevAge.ComponentModel.IBoundList;
 
 namespace SourceGrid
 {
@@ -100,7 +101,7 @@ namespace SourceGrid
 			return selObj;
 		}
 
-		private DevAge.ComponentModel.IBoundList mBoundList;
+        private ClassA mBoundList;
 
 		public override bool EnableSort{
 			get{
@@ -122,7 +123,7 @@ namespace SourceGrid
 		///  (that can be used to bind to a generic List) or BoundDataView (that can be used to bind to a DataView).
 		/// </summary>
 		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public DevAge.ComponentModel.IBoundList DataSource
+		public ClassA DataSource
 		{
 			get { return mBoundList; }
 			set
@@ -487,14 +488,19 @@ namespace SourceGrid
 		{
             //sandhra.prakash@siemens.com: changed fixedRows to headerRowCount for FreezePanes enhancement.
             if (HeaderRowCount == 2 && gridRow == 1) return true;
-			if (mEditingRow != null && mEditingRow.Value == gridRow)
-				return true;
+            int dataIndex = Rows.IndexToDataSourceIndex(gridRow);
+            if (mEditingRow != null && mEditingRow.Value == gridRow)
+            {
+                DataSource.EndEdit(false);
+                DataSource.BeginEdit(dataIndex);
+                return true;
+            }
 
 			EndEditingRow(false); //Terminate the old edit if present
 
 			if (DataSource != null)
 			{
-				int dataIndex = Rows.IndexToDataSourceIndex(gridRow);
+				
 
 				// add this here to check if we have permission for edition
 				if (!DataSource.AllowEdit)
