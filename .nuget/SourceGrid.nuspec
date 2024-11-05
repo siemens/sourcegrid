@@ -1,29 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>siemens.sourcegrid</id>
-    <version>3.1.0</version>
+    <id>Siemens-SourceGrid</id>
+    <version>4.40.1</version>
     <title>SourceGrid</title>
     <authors>Siemens AG</authors>
     <owners>SourceGrid contributors</owners>
-	<projectUrl>https://github.com/siemens/sourcegrid</projectUrl>
-	<license type="expression">MIT</license>
-	<repository type="git" url="https://github.com/siemens/sourcegrid" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-	SourceGrid is a free open source grid control. Supports virtual grid, custom cells and editors, advanced formatting options and many others features.
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/siemens/sourcegrid</projectUrl>
+    <description>SourceGrid is a free open source grid control. Supports virtual grid, custom cells and editors, advanced formatting options and many others features.
 	SourceGrid is a Windows Forms control written entirely in C#.
 	Goal is to create a simple but flexible grid to use in all of the cases in which it is necessary to visualize or to change a series of data in a table format.
 	There are a lot of controls of this type available, but often are expensive, difficult to be customize or not compatible with .NET. 
-	SourceGrid allows users to have customizable datasource which is not in DataSet format.
-    </description>
-	<copyright>Copyright 2024</copyright>
-	<tags>Open source grid control tool SOURCEGRID GRID </tags>
+	SourceGrid allows users to have customizable datasource which is not in DataSet format.</description>
+    <copyright>Copyright 2023</copyright>
+    <tags>Open source grid control tool SOURCEGRID GRID</tags>
+    <repository type="git" url="https://github.com/siemens/sourcegrid" />
     <dependencies>
-      <group targetFramework="net8.0" >
-      </group>
+      <group targetFramework=".NETFramework3.5" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="..\Out\net8\Release\net8.0-windows\SourceGrid.dll" target="lib\net8.0"/>
-  </files></package>
+</package>
