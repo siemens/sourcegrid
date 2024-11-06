@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Siemens-SourceGrid</id>
-    <version>4.40.0-EA18</version>
+    <version>4.40.0-EA17</version>
     <title>SourceGrid</title>
     <authors>Siemens AG</authors>
     <owners>SourceGrid contributors</owners>
@@ -11,6 +11,8 @@
 	<repository type="git" url="https://github.com/siemens/sourcegrid" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
+	This is a special release which is developed from the clearcase code base 3P-PUBLIC-SOURCEGRID_V4.40_EA16. The release artifact is not published or pushed to github instead 
+	to Artifactory as per the version above but source code in github.
 	SourceGrid is a free open source grid control. Supports virtual grid, custom cells and editors, advanced formatting options and many others features.
 	SourceGrid is a Windows Forms control written entirely in C#.
 	Goal is to create a simple but flexible grid to use in all of the cases in which it is necessary to visualize or to change a series of data in a table format.
