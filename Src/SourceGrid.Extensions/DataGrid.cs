@@ -487,14 +487,19 @@ namespace SourceGrid
 		{
             //sandhra.prakash@siemens.com: changed fixedRows to headerRowCount for FreezePanes enhancement.
             if (HeaderRowCount == 2 && gridRow == 1) return true;
-			if (mEditingRow != null && mEditingRow.Value == gridRow)
-				return true;
+            int dataIndex = Rows.IndexToDataSourceIndex(gridRow);
+            if (mEditingRow != null && mEditingRow.Value == gridRow)
+            {                
+                DataSource.EndEdit(false);
+                DataSource.BeginEdit(dataIndex);
+                return true;
+            }
 
-			EndEditingRow(false); //Terminate the old edit if present
+            EndEditingRow(false); //Terminate the old edit if present
 
 			if (DataSource != null)
 			{
-				int dataIndex = Rows.IndexToDataSourceIndex(gridRow);
+				dataIndex = Rows.IndexToDataSourceIndex(gridRow);
 
 				// add this here to check if we have permission for edition
 				if (!DataSource.AllowEdit)
