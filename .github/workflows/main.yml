@@ -96,7 +96,9 @@ jobs:
          name: sourcegrid
          path: |
             out/sourcegrid
-
+    - name: Debug output folders
+      run: |
+        dir out -Recurse
 
     - name: Create Nuget Packages 
       id: createNupkg
