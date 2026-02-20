@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>siemens.sourcegrid</id>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <title>SourceGrid</title>
     <authors>Siemens AG</authors>
     <owners>SourceGrid contributors</owners>
@@ -17,7 +17,7 @@
 	There are a lot of controls of this type available, but often are expensive, difficult to be customize or not compatible with .NET. 
 	SourceGrid allows users to have customizable datasource which is not in DataSet format.
     </description>
-	<copyright>Copyright 2023</copyright>
+	<copyright>Copyright 2026</copyright>
 	<tags>Open source grid control tool SOURCEGRID GRID </tags>
     <dependencies>
       <group targetFramework=".NETFramework4.8" >
