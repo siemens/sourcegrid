@@ -25,5 +25,5 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Out\net48\Release\SourceGrid.dll" target="lib\net48"/>
+    <file src="..\Out\net48\Release\net48\SourceGrid.dll" target="lib\net48"/>
   </files></package>
