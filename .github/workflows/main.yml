@@ -118,12 +118,12 @@ jobs:
   
     steps:
       - name: Download Build Output
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: sourcegrid
 
       - name: Download NuGet Package
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: nuget-sourceGrid
 
