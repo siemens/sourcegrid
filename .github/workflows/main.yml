@@ -66,7 +66,7 @@ jobs:
         
     
     - name: Archive Build Log
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       if: ${{ success() || failure() }}
       with:
         name: Compile_Solution_log
@@ -91,7 +91,7 @@ jobs:
       
         
     - name: Archive Build Output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
          name: sourcegrid
          path: |
@@ -105,7 +105,7 @@ jobs:
         Write-Host "::set-output name=nupkg-sourcegrid::siemens.sourcegrid.$($env:GitVersion_MajorMinorPatch).nupkg"
         
     - name: Archive NuGet Packages
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: nuget-sourceGrid
         path: |
